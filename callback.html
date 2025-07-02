@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Code recibido</title>
+</head>
+<body>
+  <h1>Autorización completada ✅</h1>
+  <p id="mensaje">Esperando código...</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const state = params.get("state");
+
+    if (code) {
+      document.getElementById("mensaje").innerText = `Tu código es: ${code}`;
+    } else {
+      document.getElementById("mensaje").innerText = "No se encontró ningún código.";
+    }
+  </script>
+</body>
+</html>
