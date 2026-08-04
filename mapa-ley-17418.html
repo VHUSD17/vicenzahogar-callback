@@ -1,0 +1,666 @@
+<title>Mapa de estudio — Ley de Seguros 17.418</title>
+<style>
+  :root {
+    --papel: #FAFAF8;
+    --ficha: #FFFFFF;
+    --tinta: #212832;
+    --tinta-suave: #5F6B78;
+    --bordo: #7A2E2E;
+    --bordo-tenue: #F3E9E7;
+    --sello: #A07C3B;
+    --linea: #E3E1DB;
+    --chip-fondo: #F1EFEA;
+    --sombra: 0 1px 3px rgba(33, 40, 50, 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --papel: #14181F;
+      --ficha: #1C222B;
+      --tinta: #E8E6E0;
+      --tinta-suave: #9AA5B1;
+      --bordo: #C97B72;
+      --bordo-tenue: #33262A;
+      --sello: #C9A45C;
+      --linea: #2C3440;
+      --chip-fondo: #242B36;
+      --sombra: 0 1px 3px rgba(0, 0, 0, 0.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --papel: #FAFAF8;
+    --ficha: #FFFFFF;
+    --tinta: #212832;
+    --tinta-suave: #5F6B78;
+    --bordo: #7A2E2E;
+    --bordo-tenue: #F3E9E7;
+    --sello: #A07C3B;
+    --linea: #E3E1DB;
+    --chip-fondo: #F1EFEA;
+    --sombra: 0 1px 3px rgba(33, 40, 50, 0.08);
+  }
+  :root[data-theme="dark"] {
+    --papel: #14181F;
+    --ficha: #1C222B;
+    --tinta: #E8E6E0;
+    --tinta-suave: #9AA5B1;
+    --bordo: #C97B72;
+    --bordo-tenue: #33262A;
+    --sello: #C9A45C;
+    --linea: #2C3440;
+    --chip-fondo: #242B36;
+    --sombra: 0 1px 3px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  .contenido { max-width: 920px; margin: 0 auto; padding: 0 20px 80px; }
+
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; text-wrap: balance; }
+
+  /* ---------- Encabezado ---------- */
+  header.portada {
+    border-bottom: 3px double var(--linea);
+    padding: 56px 0 32px;
+    margin-bottom: 8px;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--sello);
+    margin: 0 0 12px;
+  }
+  h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); margin: 0 0 10px; line-height: 1.15; }
+  h1 .num { color: var(--bordo); }
+  .bajada { color: var(--tinta-suave); max-width: 62ch; margin: 0; }
+
+  /* ---------- Nav ---------- */
+  nav.ancla {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--papel);
+    border-bottom: 1px solid var(--linea);
+    display: flex; gap: 4px; flex-wrap: wrap;
+    padding: 10px 0;
+    margin-bottom: 36px;
+  }
+  nav.ancla a {
+    color: var(--tinta-suave);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 5px 11px;
+    border-radius: 999px;
+  }
+  nav.ancla a:hover, nav.ancla a:focus-visible { color: var(--bordo); background: var(--bordo-tenue); outline: none; }
+
+  section { margin-bottom: 64px; scroll-margin-top: 70px; }
+  h2 {
+    font-size: 1.5rem;
+    margin: 0 0 6px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--linea);
+  }
+  .h2-nota { color: var(--tinta-suave); font-size: 0.92rem; margin: 8px 0 24px; max-width: 68ch; }
+
+  /* ---------- Árbol de estructura ---------- */
+  .arbol { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .nodo-ley {
+    background: var(--bordo); color: #FDF9F5;
+    font-family: Georgia, serif; font-size: 1.05rem; font-weight: 700;
+    padding: 12px 26px; border-radius: 6px; text-align: center;
+    box-shadow: var(--sombra);
+  }
+  .nodo-ley small { display: block; font-family: inherit; font-weight: 400; font-size: 0.78rem; opacity: 0.85; }
+  .tronco { width: 2px; height: 26px; background: var(--linea); }
+  .ramas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; }
+  .rama {
+    background: var(--ficha); border: 1px solid var(--linea); border-top: 3px solid var(--sello);
+    border-radius: 6px; padding: 14px 16px; box-shadow: var(--sombra);
+  }
+  .rama.general { border-top-color: var(--bordo); }
+  .rama h3 { margin: 0 0 2px; font-size: 1rem; }
+  .rama .rango {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.75rem; color: var(--sello); letter-spacing: 0.02em;
+  }
+  .rama.general .rango { color: var(--bordo); }
+  .rama p { margin: 8px 0 0; font-size: 0.85rem; color: var(--tinta-suave); line-height: 1.5; }
+  @media (max-width: 720px) { .ramas { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 460px) { .ramas { grid-template-columns: 1fr; } }
+
+  /* ---------- Fichas por sección ---------- */
+  .fichas { display: grid; gap: 14px; }
+  details.ficha {
+    background: var(--ficha); border: 1px solid var(--linea); border-radius: 8px;
+    box-shadow: var(--sombra); overflow: hidden;
+  }
+  details.ficha summary {
+    cursor: pointer; list-style: none;
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding: 14px 18px;
+    font-weight: 600;
+  }
+  details.ficha summary::-webkit-details-marker { display: none; }
+  details.ficha summary:focus-visible { outline: 2px solid var(--bordo); outline-offset: -2px; }
+  details.ficha summary::after {
+    content: "+"; margin-left: auto; color: var(--tinta-suave);
+    font-family: ui-monospace, monospace; font-size: 1rem;
+  }
+  details.ficha[open] summary::after { content: "–"; }
+  .art-chip {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.72rem; font-variant-numeric: tabular-nums;
+    background: var(--chip-fondo); color: var(--tinta-suave);
+    border-radius: 4px; padding: 2px 8px; white-space: nowrap;
+  }
+  details.ficha[open] .art-chip { color: var(--bordo); }
+  .ficha-cuerpo { padding: 0 18px 16px; border-top: 1px solid var(--linea); }
+  .ficha-cuerpo dl { margin: 14px 0 0; display: grid; gap: 10px; }
+  .ficha-cuerpo dt {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.78rem; color: var(--bordo); font-weight: 700;
+  }
+  .ficha-cuerpo dd { margin: 1px 0 0; font-size: 0.92rem; color: var(--tinta); max-width: 68ch; }
+  .ficha-cuerpo dd .ojo { color: var(--sello); font-weight: 600; }
+  .regla-memoria {
+    margin: 16px 0 2px; padding: 10px 14px;
+    background: var(--bordo-tenue); border-left: 3px solid var(--bordo); border-radius: 0 6px 6px 0;
+    font-size: 0.88rem;
+  }
+  .regla-memoria strong { color: var(--bordo); }
+
+  /* ---------- Tabla de plazos ---------- */
+  .plazos-barra { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+  button.repaso {
+    font: inherit; font-size: 0.85rem; font-weight: 600;
+    color: var(--bordo); background: var(--bordo-tenue);
+    border: 1px solid var(--bordo); border-radius: 999px;
+    padding: 7px 16px; cursor: pointer;
+  }
+  button.repaso:hover { filter: brightness(0.97); }
+  button.repaso:focus-visible { outline: 2px solid var(--bordo); outline-offset: 2px; }
+  .tabla-scroll { overflow-x: auto; border: 1px solid var(--linea); border-radius: 8px; background: var(--ficha); box-shadow: var(--sombra); }
+  table.plazos { border-collapse: collapse; width: 100%; min-width: 560px; }
+  table.plazos th {
+    text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--tinta-suave); padding: 12px 16px; border-bottom: 2px solid var(--linea);
+  }
+  table.plazos td { padding: 11px 16px; border-bottom: 1px solid var(--linea); font-size: 0.92rem; vertical-align: top; }
+  table.plazos tr:last-child td { border-bottom: none; }
+  td.plazo-num {
+    font-family: Georgia, serif; font-size: 1.05rem; font-weight: 700; color: var(--bordo);
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  td.plazo-art { font-family: ui-monospace, monospace; font-size: 0.8rem; color: var(--sello); white-space: nowrap; }
+  .oculto td.respuesta, .oculto td.plazo-art { position: relative; }
+  .oculto td.respuesta > span, .oculto td.plazo-art > span {
+    filter: blur(6px); cursor: pointer; user-select: none;
+    transition: filter 0.25s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .oculto td.respuesta > span, .oculto td.plazo-art > span { transition: none; }
+  }
+  .oculto td > span.revelado { filter: none; }
+  .pista-repaso { font-size: 0.8rem; color: var(--tinta-suave); margin: 8px 2px 0; display: none; }
+  .oculto ~ .pista-repaso { display: block; }
+
+  /* ---------- Conceptos ---------- */
+  .conceptos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .conceptos { grid-template-columns: 1fr; } }
+  .concepto {
+    background: var(--ficha); border: 1px solid var(--linea); border-radius: 8px;
+    padding: 16px 18px; box-shadow: var(--sombra);
+  }
+  .concepto h3 { margin: 0 0 6px; font-size: 1rem; }
+  .concepto h3 .art-chip { margin-left: 6px; }
+  .concepto p { margin: 0; font-size: 0.88rem; color: var(--tinta-suave); }
+  .concepto p b { color: var(--tinta); }
+
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  @media (max-width: 640px) { .vs { grid-template-columns: 1fr; } }
+  .vs .concepto { border-top: 3px solid var(--sello); }
+  .vs .concepto:first-child { border-top-color: var(--bordo); }
+
+  footer {
+    border-top: 3px double var(--linea);
+    margin-top: 24px; padding-top: 20px;
+    font-size: 0.8rem; color: var(--tinta-suave); max-width: 70ch;
+  }
+</style>
+
+<div class="contenido">
+
+<header class="portada">
+  <p class="eyebrow">República Argentina · Sancionada en 1967 · Mapa de estudio</p>
+  <h1>Ley de Seguros <span class="num">17.418</span></h1>
+  <p class="bajada">Regula el <strong>contrato de seguro</strong> entre asegurador y asegurado. No confundir con la Ley 20.091 (control de las aseguradoras por la SSN) ni con la 22.400 (productores asesores). Acá está todo lo que un examen suele preguntar: estructura, artículos clave, plazos y conceptos.</p>
+</header>
+
+<nav class="ancla" aria-label="Secciones del mapa">
+  <a href="#estructura">Estructura</a>
+  <a href="#generales">Disposiciones generales</a>
+  <a href="#danos">Daños patrimoniales</a>
+  <a href="#personas">Seguros de personas</a>
+  <a href="#plazos">Plazos clave</a>
+  <a href="#conceptos">Conceptos de examen</a>
+</nav>
+
+<!-- ================= ESTRUCTURA ================= -->
+<section id="estructura">
+  <h2>Cómo está armada la ley</h2>
+  <p class="h2-nota">Dos títulos. El Título I es el corazón: un capítulo de reglas generales que aplica a <em>todo</em> seguro, y dos capítulos según qué se asegura (cosas o personas). Si entendés esta división, ya sabés dónde buscar cualquier tema.</p>
+  <div class="arbol">
+    <div class="nodo-ley">Ley 17.418<small>Título I: contrato de seguro · Título II: reaseguro</small></div>
+    <div class="tronco"></div>
+    <div class="ramas">
+      <div class="rama general">
+        <h3>Disposiciones generales</h3>
+        <span class="rango">Cap. I · arts. 1–58</span>
+        <p>Reglas comunes a todo contrato: celebración, reticencia, póliza, prima, agravación, siniestro, prescripción.</p>
+      </div>
+      <div class="rama">
+        <h3>Seguros de daños patrimoniales</h3>
+        <span class="rango">Cap. II · arts. 60–127</span>
+        <p>Principio indemnizatorio. Ramas: incendio, agricultura, animales, responsabilidad civil, transporte.</p>
+      </div>
+      <div class="rama">
+        <h3>Seguros de personas</h3>
+        <span class="rango">Cap. III · arts. 128–156</span>
+        <p>Vida, accidentes personales y seguro colectivo. No rige el principio indemnizatorio estricto.</p>
+      </div>
+      <div class="rama">
+        <h3>Reaseguro</h3>
+        <span class="rango">Tít. II · arts. 159–162</span>
+        <p>El seguro del asegurador. El asegurado no tiene acción directa contra el reasegurador.</p>
+      </div>
+    </div>
+  </div>
+  <p class="regla-memoria" style="margin-top:20px;"><strong>Cierre del Título I:</strong> los arts. 157–158 fijan qué normas son imperativas: varias solo pueden modificarse <em>a favor del asegurado</em>. Dato típico de examen.</p>
+</section>
+
+<!-- ================= CAP I ================= -->
+<section id="generales">
+  <h2>Capítulo I — Disposiciones generales</h2>
+  <p class="h2-nota">Es el capítulo más preguntado porque aplica a todos los ramos. Abrí cada ficha y fijate la regla de memoria al final.</p>
+
+  <div class="fichas">
+
+    <details class="ficha">
+      <summary>Concepto y celebración <span class="art-chip">arts. 1–4</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 1</dt>
+          <dd>Definición: hay contrato de seguro cuando el asegurador se obliga, <span class="ojo">mediante una prima</span>, a resarcir un daño o cumplir la prestación convenida si ocurre el evento previsto.</dd>
+          <dt>Art. 2</dt>
+          <dd>Puede asegurarse toda clase de riesgos si existe <span class="ojo">interés asegurable</span>.</dd>
+          <dt>Art. 3</dt>
+          <dd>El contrato es nulo si al celebrarse el siniestro ya ocurrió o el riesgo ya desapareció (inexistencia de riesgo).</dd>
+          <dt>Art. 4</dt>
+          <dd>El contrato es <span class="ojo">consensual</span>: existe desde el acuerdo, aun antes de emitirse la póliza. La propuesta no obliga por sí sola.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> riesgo + interés asegurable + prima = seguro. Sin riesgo, nulidad; sin póliza emitida, el contrato igual existe.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Reticencia y falsa declaración <span class="art-chip">arts. 5–10</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 5</dt>
+          <dd>Toda declaración falsa u omisión de circunstancias conocidas por el asegurado, <span class="ojo">aun de buena fe</span>, que hubiera impedido el contrato o modificado sus condiciones, hace <span class="ojo">nulo</span> el contrato. El asegurador debe impugnar dentro de los <span class="ojo">3 meses</span> de conocerla. Se juzga con dictamen de peritos.</dd>
+          <dt>Arts. 6–8</dt>
+          <dd>Efectos según haya buena fe o dolo: con dolo o mala fe, el asegurador <span class="ojo">conserva las primas</span>.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> reticencia = mentir u ocultar al declarar el riesgo. Sanción fuerte (nulidad) porque el seguro es un contrato de <em>máxima buena fe</em>.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Póliza <span class="art-chip">arts. 11–14</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 11</dt>
+          <dd>El contrato solo puede <span class="ojo">probarse por escrito</span> (aunque se admiten los demás medios si hay principio de prueba por escrito). Enumera el contenido de la póliza.</dd>
+          <dt>Art. 12</dt>
+          <dd>Si la póliza difiere de la propuesta, la diferencia se considera aprobada si el tomador no reclama dentro de <span class="ojo">1 mes</span> de recibirla (el asegurador debe advertirlo en cláusula destacada).</dd>
+          <dt>Arts. 13–14</dt>
+          <dd>Robo, pérdida o destrucción de la póliza; cesión y pólizas a la orden o al portador.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> la póliza <em>prueba</em> el contrato, no lo <em>crea</em> (eso ya lo hizo el consentimiento, art. 4).</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Plazo y vigencia <span class="art-chip">arts. 15–20</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 15</dt>
+          <dd>Denuncias y declaraciones: se hacen por escrito; la <span class="ojo">mora es automática</span>.</dd>
+          <dt>Art. 17</dt>
+          <dd>Se presume que el período de seguro es de <span class="ojo">1 año</span>, salvo pacto o naturaleza del riesgo distintos.</dd>
+          <dt>Art. 18</dt>
+          <dd>La cobertura comienza a las <span class="ojo">12 horas</span> del día inicial y termina a las 12 horas del último día. Cualquiera de las partes puede rescindir sin causa si se pactó (preaviso: asegurador 15 días; asegurado sin preaviso).</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Seguro por cuenta ajena <span class="art-chip">arts. 21–26</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Arts. 21–26</dt>
+          <dd>Distinción <span class="ojo">tomador</span> (contrata y paga) / <span class="ojo">asegurado</span> (titular del interés). El tomador puede contratar por cuenta de un tercero, incluso sin designarlo ("por cuenta de quien corresponda"). Los derechos del contrato corresponden al asegurado; el tomador puede cobrar si tiene la póliza y consentimiento.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Prima <span class="art-chip">arts. 27–35</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 27</dt>
+          <dd>El <span class="ojo">tomador</span> es el obligado al pago. El asegurador no puede rehusar el pago ofrecido por un tercero con interés.</dd>
+          <dt>Art. 30</dt>
+          <dd>Lugar de pago: domicilio del asegurador (salvo pacto o costumbre de cobrar a domicilio).</dd>
+          <dt>Art. 31</dt>
+          <dd>La clave: si la prima no se paga, el asegurador <span class="ojo">no responde por el siniestro ocurrido durante la mora</span> (suspensión de cobertura).</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> mora en la prima → cobertura <em>suspendida</em>, no contrato extinguido. Pagada la prima, la cobertura se rehabilita hacia el futuro.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Caducidad convencional <span class="art-chip">art. 36</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 36</dt>
+          <dd>Regula las caducidades pactadas por incumplimiento de cargas del asegurado. Distingue cargas <span class="ojo">anteriores</span> al siniestro (el asegurador debe alegar la caducidad dentro del mes de conocido el incumplimiento) y <span class="ojo">posteriores</span> (solo libera si el incumplimiento influyó en la extensión de su obligación).</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Agravación del riesgo <span class="art-chip">arts. 37–45</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 37</dt>
+          <dd>Toda agravación del riesgo que, de haber existido al contratar, habría impedido el contrato o modificado sus condiciones, es causa de <span class="ojo">rescisión</span>.</dd>
+          <dt>Art. 38</dt>
+          <dd>El tomador debe <span class="ojo">denunciar</span> las agravaciones causadas por hecho suyo antes de que se produzcan, y las ajenas apenas las conozca.</dd>
+          <dt>Arts. 39–40</dt>
+          <dd>Agravación por hecho del tomador: cobertura <span class="ojo">suspendida</span>; por hecho ajeno: el asegurador puede rescindir con preaviso.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> el riesgo declarado es la base del contrato; si cambia para peor, hay que avisar o se pierde la cobertura.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Denuncia del siniestro y cargas <span class="art-chip">arts. 46–48</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 46</dt>
+          <dd>El asegurado debe denunciar el siniestro dentro de los <span class="ojo">3 días</span> de conocerlo, y suministrar la información necesaria para verificar el siniestro y la magnitud del daño (información complementaria si es razonable).</dd>
+          <dt>Art. 47</dt>
+          <dd>Pierde el derecho a ser indemnizado quien omite la denuncia del art. 46, salvo caso fortuito, fuerza mayor o imposibilidad de hecho sin culpa.</dd>
+          <dt>Art. 48</dt>
+          <dd>Pierde el derecho quien <span class="ojo">exagera fraudulentamente</span> los daños o emplea prueba falsa.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> 46 = carga de avisar e informar · 47 = sanción por no avisar · 48 = sanción por mentir sobre el daño.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Pago y pronunciamiento del asegurador <span class="art-chip">arts. 49–51 y 56</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 49</dt>
+          <dd>Daños: el asegurador paga dentro de los <span class="ojo">15 días</span> de fijado el monto o aceptada la indemnización. Personas: 15 días de la denuncia o de acompañada la información complementaria.</dd>
+          <dt>Art. 51</dt>
+          <dd>El asegurado puede exigir un <span class="ojo">pago a cuenta</span> si el procedimiento para fijar el monto se demora más de un mes desde la denuncia.</dd>
+          <dt>Art. 56</dt>
+          <dd>El asegurador debe <span class="ojo">pronunciarse sobre el derecho del asegurado dentro de los 30 días</span> de recibida la información complementaria. <span class="ojo">El silencio importa aceptación</span>.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> el art. 56 es de los más citados en juicios: si la aseguradora no rechaza en 30 días, aceptó el siniestro.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Prescripción <span class="art-chip">art. 58</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 58</dt>
+          <dd>Las acciones fundadas en el contrato de seguro prescriben en <span class="ojo">1 año</span> desde que la obligación es exigible. En el seguro de vida, para el beneficiario, desde que conoce la existencia del beneficio (tope: 3 años desde el siniestro). Los actos del procedimiento para liquidar el daño <span class="ojo">interrumpen</span> la prescripción. No puede abreviarse por contrato.</dd>
+        </dl>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= CAP II ================= -->
+<section id="danos">
+  <h2>Capítulo II — Seguros de daños patrimoniales</h2>
+  <p class="h2-nota">Principio rector: el seguro de daños es <strong>indemnizatorio</strong> — repara el daño sufrido, nunca puede ser fuente de ganancia. Primero las reglas comunes, después las ramas.</p>
+
+  <div class="fichas">
+
+    <details class="ficha">
+      <summary>Interés asegurable y medida de la indemnización <span class="art-chip">arts. 60–67</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 60</dt>
+          <dd>Puede asegurarse cualquier <span class="ojo">interés económico lícito</span> respecto de un bien.</dd>
+          <dt>Art. 61</dt>
+          <dd>El asegurador resarce el daño hasta el monto de la suma asegurada; la indemnización <span class="ojo">nunca puede superar el daño efectivamente sufrido</span> (prohibición de enriquecimiento).</dd>
+          <dt>Arts. 62–65</dt>
+          <dd><span class="ojo">Sobreseguro</span>: si la suma supera el valor del bien, solo se debe el perjuicio real (si hubo dolo del asegurado, el contrato es nulo). <span class="ojo">Infraseguro</span>: si la suma es menor al valor, rige la <span class="ojo">regla proporcional</span> — el asegurador indemniza en proporción. Puede pactarse <span class="ojo">valor tasado</span>.</dd>
+          <dt>Art. 67</dt>
+          <dd><span class="ojo">Pluralidad de seguros</span>: quien asegura el mismo interés y riesgo con más de un asegurador debe notificarlo a cada uno; cada asegurador contribuye a prorrata. Asegurar dos veces para cobrar dos veces es nulo.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> infraseguro → regla de tres: indemnización = daño × (suma asegurada / valor asegurable).</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Provocación del siniestro y salvamento <span class="art-chip">arts. 70–73</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 70</dt>
+          <dd>El asegurador queda <span class="ojo">liberado</span> si el asegurado o beneficiario provoca el siniestro con <span class="ojo">dolo o culpa grave</span>. La culpa leve está cubierta.</dd>
+          <dt>Arts. 72–73</dt>
+          <dd>Carga de <span class="ojo">salvamento</span>: el asegurado debe hacer lo posible para evitar o disminuir el daño y seguir las instrucciones del asegurador. El asegurador <span class="ojo">reembolsa los gastos</span> de salvamento, aun infructuosos.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Liquidación, abandono y subrogación <span class="art-chip">arts. 74–82</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 74</dt>
+          <dd>El asegurado <span class="ojo">no puede hacer abandono</span> de los bienes dañados al asegurador (salvo pacto).</dd>
+          <dt>Arts. 75–78</dt>
+          <dd>Verificación y valuación del daño: <span class="ojo">juicio de peritos</span> si se pactó; el asegurado puede hacerse asistir.</dd>
+          <dt>Art. 80</dt>
+          <dd><span class="ojo">Subrogación</span>: pagada la indemnización, los derechos del asegurado contra el tercero responsable pasan al asegurador hasta el monto pagado. <span class="ojo">No aplica en seguros de personas</span>.</dd>
+          <dt>Art. 82</dt>
+          <dd>Cambio de titular del interés asegurado: debe notificarse al asegurador dentro de los <span class="ojo">7 días</span>.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Ramas en particular <span class="art-chip">arts. 85–127</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>85–89</dt>
+          <dd><span class="ojo">Incendio</span>: el asegurador indemniza el daño causado por la acción directa o indirecta del fuego y las medidas para extinguirlo. Terremoto, guerra o motín no están cubiertos salvo pacto.</dd>
+          <dt>90–97</dt>
+          <dd><span class="ojo">Agricultura</span> (granizo, helada): daños a los frutos y productos; reglas propias de denuncia y valuación.</dd>
+          <dt>98–108</dt>
+          <dd><span class="ojo">Animales</span>: mortalidad del ganado; cargas especiales de cuidado y asistencia veterinaria.</dd>
+          <dt>109–120</dt>
+          <dd><span class="ojo">Responsabilidad civil</span>: la estrella del capítulo — ver ficha siguiente.</dd>
+          <dt>121–127</dt>
+          <dd><span class="ojo">Transporte</span>: por tierra rige esta ley; comprende mercaderías, vehículo y responsabilidad del transportista.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Responsabilidad civil en detalle <span class="art-chip">arts. 109–120</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 109</dt>
+          <dd>El asegurador mantiene <span class="ojo">indemne</span> al asegurado por cuanto deba a un tercero por la responsabilidad prevista, a consecuencia de un hecho ocurrido en el plazo convenido.</dd>
+          <dt>Arts. 110–111</dt>
+          <dd>La garantía comprende las <span class="ojo">costas judiciales</span> y los gastos de defensa civil; las <span class="ojo">penas</span> (multas, sanciones) no son asegurables.</dd>
+          <dt>Art. 114</dt>
+          <dd>El asegurado pierde cobertura si provocó el hecho con <span class="ojo">dolo o culpa grave</span>.</dd>
+          <dt>Arts. 115–116</dt>
+          <dd>Cargas: denunciar el hecho y las demandas; <span class="ojo">no reconocer responsabilidad ni transar</span> sin anuencia del asegurador.</dd>
+          <dt>Art. 118</dt>
+          <dd>El crédito del damnificado tiene <span class="ojo">privilegio</span> sobre la suma asegurada; el damnificado puede <span class="ojo">citar en garantía</span> al asegurador en el juicio contra el asegurado, y la sentencia es ejecutable contra el asegurador <span class="ojo">"en la medida del seguro"</span>.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> art. 118 = citación en garantía + "en la medida del seguro". Es el artículo más litigado de toda la ley (juicios de accidentes de tránsito).</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= CAP III ================= -->
+<section id="personas">
+  <h2>Capítulo III — Seguros de personas</h2>
+  <p class="h2-nota">La vida humana no tiene precio de mercado: acá no rige el principio indemnizatorio estricto — se paga la suma convenida. Por eso tampoco hay subrogación.</p>
+
+  <div class="fichas">
+
+    <details class="ficha">
+      <summary>Seguro sobre la vida <span class="art-chip">arts. 128–148</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 128</dt>
+          <dd>Puede asegurarse la vida propia o la de un <span class="ojo">tercero</span> (en ese caso se requiere su <span class="ojo">consentimiento por escrito</span>). Menores desde los 18 años pueden contratar sobre su propia vida si designan beneficiarios a ciertos parientes. Prohibido sobre la vida de menores de 14 años y de interdictos.</dd>
+          <dt>Art. 130</dt>
+          <dd><span class="ojo">Suicidio</span>: libera al asegurador, salvo que el contrato haya estado en vigor ininterrumpidamente por <span class="ojo">3 años</span>.</dd>
+          <dt>Arts. 136–137</dt>
+          <dd>El asegurador se libera si la muerte fue provocada deliberadamente por acto ilícito del contratante; el <span class="ojo">beneficiario que provoca la muerte</span> deliberadamente pierde su derecho.</dd>
+          <dt>Arts. 138 y ss.</dt>
+          <dd>Después de cierto tiempo de vigencia, el asegurado gana derechos de <span class="ojo">rescate y conversión</span> (la póliza acumula valor); la ley protege ese valor frente a la falta de pago.</dd>
+          <dt>Arts. 143–147</dt>
+          <dd><span class="ojo">Beneficiario</span>: designación libre y revocable; a falta de designación o si caduca, los herederos. La designación puede hacerse incluso por testamento.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> el beneficiario adquiere un <em>derecho propio</em> al ocurrir el siniestro — la suma no integra la herencia del asegurado.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Accidentes personales <span class="art-chip">arts. 149–152</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Arts. 149–152</dt>
+          <dd>Se aplican por analogía varias reglas del seguro de vida y las cargas de salvamento. El asegurador se libera si el asegurado o beneficiario <span class="ojo">provoca el accidente dolosamente o por culpa grave</span>.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Seguro colectivo <span class="art-chip">arts. 153–156</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Arts. 153–156</dt>
+          <dd>Un tomador (típicamente el empleador o un banco) contrata sobre la vida o salud de un <span class="ojo">grupo</span>. Los integrantes del grupo y sus beneficiarios tienen un <span class="ojo">derecho propio</span> contra el asegurador desde que ocurre el evento.</dd>
+        </dl>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= PLAZOS ================= -->
+<section id="plazos">
+  <h2>Plazos clave</h2>
+  <div class="plazos-barra">
+    <p class="h2-nota" style="margin:0;">Los plazos son lo más tomado en exámenes y lo más usado en la práctica. Activá el modo repaso para taparlos y auto-evaluarte: tocá cada celda para revelarla.</p>
+    <button class="repaso" id="btn-repaso" type="button" aria-pressed="false">Modo repaso</button>
+  </div>
+  <div class="tabla-scroll">
+  <table class="plazos" id="tabla-plazos">
+    <thead>
+      <tr><th scope="col">Situación</th><th scope="col">Plazo</th><th scope="col">Artículo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Denunciar el siniestro al asegurador</td><td class="plazo-num respuesta"><span>3 días</span></td><td class="plazo-art"><span>art. 46</span></td></tr>
+      <tr><td>Cambio de titular del interés asegurado: notificar</td><td class="plazo-num respuesta"><span>7 días</span></td><td class="plazo-art"><span>art. 82</span></td></tr>
+      <tr><td>Pago de la indemnización una vez fijado el monto</td><td class="plazo-num respuesta"><span>15 días</span></td><td class="plazo-art"><span>art. 49</span></td></tr>
+      <tr><td>Pronunciamiento del asegurador sobre el derecho (silencio = aceptación)</td><td class="plazo-num respuesta"><span>30 días</span></td><td class="plazo-art"><span>art. 56</span></td></tr>
+      <tr><td>Reclamar diferencias entre propuesta y póliza</td><td class="plazo-num respuesta"><span>1 mes</span></td><td class="plazo-art"><span>art. 12</span></td></tr>
+      <tr><td>Asegurador impugna el contrato por reticencia (desde que la conoce)</td><td class="plazo-num respuesta"><span>3 meses</span></td><td class="plazo-art"><span>art. 5</span></td></tr>
+      <tr><td>Prescripción de las acciones fundadas en el contrato</td><td class="plazo-num respuesta"><span>1 año</span></td><td class="plazo-art"><span>art. 58</span></td></tr>
+      <tr><td>Duración presumida del período de seguro</td><td class="plazo-num respuesta"><span>1 año</span></td><td class="plazo-art"><span>art. 17</span></td></tr>
+      <tr><td>Vigencia mínima para que el suicidio quede cubierto (vida)</td><td class="plazo-num respuesta"><span>3 años</span></td><td class="plazo-art"><span>art. 130</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="pista-repaso" id="pista-repaso">Modo repaso activo: las respuestas están tapadas — tocá una celda para revelarla, o volvé a apretar el botón para mostrar todo.</p>
+</section>
+
+<!-- ================= CONCEPTOS ================= -->
+<section id="conceptos">
+  <h2>Conceptos que caen en examen</h2>
+  <p class="h2-nota">Definiciones cortas para repasar en cinco minutos antes de rendir.</p>
+
+  <div class="conceptos">
+    <div class="concepto"><h3>Máxima buena fe<span class="art-chip">base del sistema</span></h3><p>El seguro es un contrato <b>uberrimae bona fidei</b>: el asegurador contrata a ciegas sobre lo que el asegurado declara. De ahí la dureza de la reticencia (art. 5).</p></div>
+    <div class="concepto"><h3>Interés asegurable<span class="art-chip">arts. 2 y 60</span></h3><p>Relación económica lícita entre una persona y un bien (o su propia vida). <b>Sin interés no hay seguro</b> — habría apuesta.</p></div>
+    <div class="concepto"><h3>Regla proporcional<span class="art-chip">art. 65</span></h3><p>En el infraseguro, el asegurado <b>soporta la parte no cubierta</b>: la indemnización se reduce en proporción entre suma asegurada y valor real.</p></div>
+    <div class="concepto"><h3>Suspensión de cobertura<span class="art-chip">art. 31</span></h3><p>Prima impaga = siniestro en mora <b>no cubierto</b>. El contrato sigue vivo y las primas se siguen debiendo, pero el asegurador no responde.</p></div>
+    <div class="concepto"><h3>Cargas del asegurado<span class="art-chip">arts. 46–48, 72, 115</span></h3><p>No son obligaciones exigibles sino <b>imperativos del propio interés</b>: denunciar, informar, salvar, no transar. Incumplirlas hace perder el derecho, no genera demanda.</p></div>
+    <div class="concepto"><h3>Subrogación<span class="art-chip">art. 80</span></h3><p>Pagando, el asegurador <b>ocupa el lugar del asegurado</b> contra el tercero responsable. Nunca en seguros de personas.</p></div>
+    <div class="concepto"><h3>Citación en garantía<span class="art-chip">art. 118</span></h3><p>El damnificado trae al asegurador al juicio contra el asegurado; la condena se ejecuta contra la aseguradora <b>"en la medida del seguro"</b>.</p></div>
+    <div class="concepto"><h3>Normas imperativas<span class="art-chip">art. 158</span></h3><p>Ciertas reglas (p. ej. denuncia del siniestro, mora, reticencia) solo pueden modificarse <b>a favor del asegurado</b>. Protege a la parte débil del contrato de adhesión.</p></div>
+  </div>
+
+  <div class="vs">
+    <div class="concepto"><h3>Caducidad</h3><p>El asegurado <b>tenía</b> el derecho y lo <b>pierde</b> por incumplir una carga (no denunció a tiempo, exageró el daño). Mira la conducta del asegurado.</p></div>
+    <div class="concepto"><h3>Exclusión de cobertura</h3><p>El riesgo <b>nunca estuvo cubierto</b> (guerra, dolo, uso no declarado). No hay derecho que perder: el siniestro cae fuera del contrato. Distinción clásica de examen.</p></div>
+  </div>
+</section>
+
+<footer>
+  Mapa de estudio de la Ley 17.418 (texto según B.O. 06/09/1967 y modificatorias). Es material de repaso: para citar en un examen o escrito, verificá siempre el texto vigente en InfoLEG (servicios.infoleg.gob.ar).
+</footer>
+
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById("btn-repaso");
+    var tabla = document.getElementById("tabla-plazos");
+    btn.addEventListener("click", function () {
+      var activo = tabla.classList.toggle("oculto");
+      btn.setAttribute("aria-pressed", String(activo));
+      btn.textContent = activo ? "Mostrar respuestas" : "Modo repaso";
+      if (!activo) {
+        tabla.querySelectorAll("span.revelado").forEach(function (s) { s.classList.remove("revelado"); });
+      }
+    });
+    tabla.addEventListener("click", function (e) {
+      if (!tabla.classList.contains("oculto")) return;
+      var celda = e.target.closest("td.respuesta, td.plazo-art");
+      if (celda) {
+        var span = celda.querySelector("span");
+        if (span) span.classList.add("revelado");
+      }
+    });
+  })();
+</script>
