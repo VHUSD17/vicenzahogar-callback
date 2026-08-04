@@ -60,7 +60,7 @@
     line-height: 1.6;
     font-size: 16px;
   }
-  .contenido { max-width: 920px; margin: 0 auto; padding: 0 20px 80px; }
+  .contenido { max-width: 940px; margin: 0 auto; padding: 0 20px 80px; }
 
   h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; text-wrap: balance; }
 
@@ -80,14 +80,14 @@
   }
   h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); margin: 0 0 10px; line-height: 1.15; }
   h1 .num { color: var(--bordo); }
-  .bajada { color: var(--tinta-suave); max-width: 62ch; margin: 0; }
+  .bajada { color: var(--tinta-suave); max-width: 64ch; margin: 0; }
 
   /* ---------- Nav ---------- */
   nav.ancla {
     position: sticky; top: 0; z-index: 10;
     background: var(--papel);
     border-bottom: 1px solid var(--linea);
-    display: flex; gap: 4px; flex-wrap: wrap;
+    display: flex; gap: 4px; flex-wrap: wrap; align-items: center;
     padding: 10px 0;
     margin-bottom: 36px;
   }
@@ -100,6 +100,15 @@
     border-radius: 999px;
   }
   nav.ancla a:hover, nav.ancla a:focus-visible { color: var(--bordo); background: var(--bordo-tenue); outline: none; }
+  nav.ancla button.expandir {
+    margin-left: auto;
+    font: inherit; font-size: 0.78rem; font-weight: 600;
+    color: var(--sello); background: transparent;
+    border: 1px solid var(--sello); border-radius: 999px;
+    padding: 4px 12px; cursor: pointer; white-space: nowrap;
+  }
+  nav.ancla button.expandir:hover { background: var(--chip-fondo); }
+  nav.ancla button.expandir:focus-visible { outline: 2px solid var(--sello); outline-offset: 2px; }
 
   section { margin-bottom: 64px; scroll-margin-top: 70px; }
   h2 {
@@ -108,7 +117,7 @@
     padding-bottom: 8px;
     border-bottom: 1px solid var(--linea);
   }
-  .h2-nota { color: var(--tinta-suave); font-size: 0.92rem; margin: 8px 0 24px; max-width: 68ch; }
+  .h2-nota { color: var(--tinta-suave); font-size: 0.92rem; margin: 8px 0 24px; max-width: 70ch; }
 
   /* ---------- Árbol de estructura ---------- */
   .arbol { display: flex; flex-direction: column; align-items: center; gap: 0; }
@@ -163,13 +172,20 @@
   }
   details.ficha[open] .art-chip { color: var(--bordo); }
   .ficha-cuerpo { padding: 0 18px 16px; border-top: 1px solid var(--linea); }
-  .ficha-cuerpo dl { margin: 14px 0 0; display: grid; gap: 10px; }
+  .ficha-cuerpo dl { margin: 14px 0 0; display: grid; gap: 12px; }
   .ficha-cuerpo dt {
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 0.78rem; color: var(--bordo); font-weight: 700;
   }
-  .ficha-cuerpo dd { margin: 1px 0 0; font-size: 0.92rem; color: var(--tinta); max-width: 68ch; }
+  .ficha-cuerpo dt .tema { color: var(--tinta-suave); font-weight: 600; }
+  .ficha-cuerpo dd { margin: 1px 0 0; font-size: 0.92rem; color: var(--tinta); max-width: 72ch; }
   .ficha-cuerpo dd .ojo { color: var(--sello); font-weight: 600; }
+  .ejemplo {
+    margin-top: 7px; padding: 7px 12px;
+    background: var(--chip-fondo); border-left: 3px solid var(--sello); border-radius: 0 5px 5px 0;
+    font-size: 0.85rem; color: var(--tinta-suave); max-width: 68ch;
+  }
+  .ejemplo b { color: var(--sello); font-weight: 700; }
   .regla-memoria {
     margin: 16px 0 2px; padding: 10px 14px;
     background: var(--bordo-tenue); border-left: 3px solid var(--bordo); border-radius: 0 6px 6px 0;
@@ -200,7 +216,6 @@
     white-space: nowrap; font-variant-numeric: tabular-nums;
   }
   td.plazo-art { font-family: ui-monospace, monospace; font-size: 0.8rem; color: var(--sello); white-space: nowrap; }
-  .oculto td.respuesta, .oculto td.plazo-art { position: relative; }
   .oculto td.respuesta > span, .oculto td.plazo-art > span {
     filter: blur(6px); cursor: pointer; user-select: none;
     transition: filter 0.25s ease;
@@ -232,25 +247,27 @@
   footer {
     border-top: 3px double var(--linea);
     margin-top: 24px; padding-top: 20px;
-    font-size: 0.8rem; color: var(--tinta-suave); max-width: 70ch;
+    font-size: 0.8rem; color: var(--tinta-suave); max-width: 72ch;
   }
 </style>
 
 <div class="contenido">
 
 <header class="portada">
-  <p class="eyebrow">República Argentina · Sancionada en 1967 · Mapa de estudio</p>
+  <p class="eyebrow">República Argentina · Sancionada en 1967 · Mapa de estudio artículo por artículo</p>
   <h1>Ley de Seguros <span class="num">17.418</span></h1>
-  <p class="bajada">Regula el <strong>contrato de seguro</strong> entre asegurador y asegurado. No confundir con la Ley 20.091 (control de las aseguradoras por la SSN) ni con la 22.400 (productores asesores). Acá está todo lo que un examen suele preguntar: estructura, artículos clave, plazos y conceptos.</p>
+  <p class="bajada">Regula el <strong>contrato de seguro</strong> entre asegurador y asegurado. No confundir con la Ley 20.091 (control de las aseguradoras por la SSN) ni con la 22.400 (productores asesores). Este mapa cubre los <strong>163 artículos</strong> de la ley, con resumen y ejemplos, más los plazos y conceptos que caen en examen.</p>
 </header>
 
 <nav class="ancla" aria-label="Secciones del mapa">
   <a href="#estructura">Estructura</a>
-  <a href="#generales">Disposiciones generales</a>
-  <a href="#danos">Daños patrimoniales</a>
-  <a href="#personas">Seguros de personas</a>
-  <a href="#plazos">Plazos clave</a>
-  <a href="#conceptos">Conceptos de examen</a>
+  <a href="#generales">Generales (1–59)</a>
+  <a href="#danos">Daños (60–127)</a>
+  <a href="#personas">Personas (128–156)</a>
+  <a href="#finales">Finales y reaseguro</a>
+  <a href="#plazos">Plazos</a>
+  <a href="#conceptos">Conceptos</a>
+  <button class="expandir" id="btn-expandir" type="button">Abrir todo</button>
 </nav>
 
 <!-- ================= ESTRUCTURA ================= -->
@@ -258,12 +275,12 @@
   <h2>Cómo está armada la ley</h2>
   <p class="h2-nota">Dos títulos. El Título I es el corazón: un capítulo de reglas generales que aplica a <em>todo</em> seguro, y dos capítulos según qué se asegura (cosas o personas). Si entendés esta división, ya sabés dónde buscar cualquier tema.</p>
   <div class="arbol">
-    <div class="nodo-ley">Ley 17.418<small>Título I: contrato de seguro · Título II: reaseguro</small></div>
+    <div class="nodo-ley">Ley 17.418<small>Título I: contrato de seguro (1–158) · Título II: reaseguro (159–162)</small></div>
     <div class="tronco"></div>
     <div class="ramas">
       <div class="rama general">
         <h3>Disposiciones generales</h3>
-        <span class="rango">Cap. I · arts. 1–58</span>
+        <span class="rango">Cap. I · arts. 1–59</span>
         <p>Reglas comunes a todo contrato: celebración, reticencia, póliza, prima, agravación, siniestro, prescripción.</p>
       </div>
       <div class="rama">
@@ -277,19 +294,18 @@
         <p>Vida, accidentes personales y seguro colectivo. No rige el principio indemnizatorio estricto.</p>
       </div>
       <div class="rama">
-        <h3>Reaseguro</h3>
-        <span class="rango">Tít. II · arts. 159–162</span>
-        <p>El seguro del asegurador. El asegurado no tiene acción directa contra el reasegurador.</p>
+        <h3>Finales y reaseguro</h3>
+        <span class="rango">arts. 157–163</span>
+        <p>Normas imperativas (158), seguros marítimos (157) y el seguro del asegurador (159–162).</p>
       </div>
     </div>
   </div>
-  <p class="regla-memoria" style="margin-top:20px;"><strong>Cierre del Título I:</strong> los arts. 157–158 fijan qué normas son imperativas: varias solo pueden modificarse <em>a favor del asegurado</em>. Dato típico de examen.</p>
 </section>
 
 <!-- ================= CAP I ================= -->
 <section id="generales">
-  <h2>Capítulo I — Disposiciones generales</h2>
-  <p class="h2-nota">Es el capítulo más preguntado porque aplica a todos los ramos. Abrí cada ficha y fijate la regla de memoria al final.</p>
+  <h2>Capítulo I — Disposiciones generales <span class="art-chip">arts. 1–59</span></h2>
+  <p class="h2-nota">Es el capítulo más preguntado porque aplica a todos los ramos. Cada ficha lista <em>todos</em> sus artículos; los recuadros dorados son ejemplos y los bordó, reglas de memoria.</p>
 
   <div class="fichas">
 
@@ -297,14 +313,16 @@
       <summary>Concepto y celebración <span class="art-chip">arts. 1–4</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 1</dt>
-          <dd>Definición: hay contrato de seguro cuando el asegurador se obliga, <span class="ojo">mediante una prima</span>, a resarcir un daño o cumplir la prestación convenida si ocurre el evento previsto.</dd>
-          <dt>Art. 2</dt>
-          <dd>Puede asegurarse toda clase de riesgos si existe <span class="ojo">interés asegurable</span>.</dd>
-          <dt>Art. 3</dt>
-          <dd>El contrato es nulo si al celebrarse el siniestro ya ocurrió o el riesgo ya desapareció (inexistencia de riesgo).</dd>
-          <dt>Art. 4</dt>
-          <dd>El contrato es <span class="ojo">consensual</span>: existe desde el acuerdo, aun antes de emitirse la póliza. La propuesta no obliga por sí sola.</dd>
+          <dt>Art. 1 · <span class="tema">Definición</span></dt>
+          <dd>Hay contrato de seguro cuando el asegurador se obliga, <span class="ojo">mediante una prima o cotización</span>, a resarcir un daño o cumplir la prestación convenida si ocurre el evento previsto.</dd>
+          <dt>Art. 2 · <span class="tema">Objeto</span></dt>
+          <dd>Puede ser objeto del seguro toda clase de riesgos si existe <span class="ojo">interés asegurable</span>, salvo prohibición expresa de la ley.</dd>
+          <dt>Art. 3 · <span class="tema">Inexistencia de riesgo</span></dt>
+          <dd>El contrato es <span class="ojo">nulo</span> si al celebrarlo el siniestro ya se había producido o había desaparecido la posibilidad de que ocurriera.
+            <div class="ejemplo"><b>Ejemplo:</b> asegurar contra incendio un galpón que se quemó ayer (aunque ninguna de las partes lo supiera) — no hay riesgo, no hay seguro.</div></dd>
+          <dt>Art. 4 · <span class="tema">Naturaleza consensual</span></dt>
+          <dd>Los derechos y obligaciones empiezan <span class="ojo">desde que se celebró la convención</span>, aun antes de emitirse la póliza. La propuesta no obliga por sí sola. La propuesta de <span class="ojo">prórroga</span> se considera aceptada si el asegurador no la rechaza en <span class="ojo">15 días</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> acordaste la cobertura por teléfono el lunes y la póliza llega el viernes; un robo del miércoles ya está cubierto, porque el contrato existía desde el acuerdo.</div></dd>
         </dl>
         <p class="regla-memoria"><strong>Memoria:</strong> riesgo + interés asegurable + prima = seguro. Sin riesgo, nulidad; sin póliza emitida, el contrato igual existe.</p>
       </div>
@@ -314,12 +332,21 @@
       <summary>Reticencia y falsa declaración <span class="art-chip">arts. 5–10</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 5</dt>
-          <dd>Toda declaración falsa u omisión de circunstancias conocidas por el asegurado, <span class="ojo">aun de buena fe</span>, que hubiera impedido el contrato o modificado sus condiciones, hace <span class="ojo">nulo</span> el contrato. El asegurador debe impugnar dentro de los <span class="ojo">3 meses</span> de conocerla. Se juzga con dictamen de peritos.</dd>
-          <dt>Arts. 6–8</dt>
-          <dd>Efectos según haya buena fe o dolo: con dolo o mala fe, el asegurador <span class="ojo">conserva las primas</span>.</dd>
+          <dt>Art. 5 · <span class="tema">Concepto</span></dt>
+          <dd>Toda declaración falsa o reticencia de circunstancias conocidas por el asegurado, <span class="ojo">aun de buena fe</span>, que a juicio de peritos hubiese impedido el contrato o modificado sus condiciones, hace <span class="ojo">nulo</span> el contrato. El asegurador debe impugnar dentro de los <span class="ojo">3 meses</span> de conocerla.
+            <div class="ejemplo"><b>Ejemplo:</b> al asegurar la casa declarás que tiene alarma y rejas y no tiene ninguna de las dos; o en un seguro de vida omitís una enfermedad cardíaca diagnosticada.</div></dd>
+          <dt>Art. 6 · <span class="tema">Reticencia no dolosa</span></dt>
+          <dd>Si no hubo dolo, el asegurador puede <span class="ojo">anular</span> el contrato restituyendo la prima (con deducción de gastos) o <span class="ojo">reajustarlo</span> con conformidad del asegurado. En los seguros de vida el reajuste puede imponerse al asegurador cuando la nulidad lo perjudique al asegurado.</dd>
+          <dt>Art. 7 · <span class="tema">Reajuste después del siniestro</span></dt>
+          <dd>Si el siniestro ocurre durante el plazo de reajuste en un seguro de vida reajustable, el asegurador debe la <span class="ojo">prestación reducida</span> en proporción a la prima que correspondía.</dd>
+          <dt>Art. 8 · <span class="tema">Reticencia dolosa</span></dt>
+          <dd>Con dolo o mala fe, el asegurador anula el contrato y <span class="ojo">conserva las primas</span> de los períodos transcurridos y del período en que invoca la reticencia.</dd>
+          <dt>Art. 9 · <span class="tema">Siniestro en el plazo de impugnación</span></dt>
+          <dd>En todos los casos, si el siniestro ocurre durante el plazo para impugnar, el asegurador <span class="ojo">no debe prestación alguna</span>, salvo el valor de rescate en los seguros de vida.</dd>
+          <dt>Art. 10 · <span class="tema">Celebración por representante</span></dt>
+          <dd>Si el contrato se celebra por representante, para juzgar la reticencia se toma en cuenta el conocimiento <span class="ojo">del representante y del asegurado</span>.</dd>
         </dl>
-        <p class="regla-memoria"><strong>Memoria:</strong> reticencia = mentir u ocultar al declarar el riesgo. Sanción fuerte (nulidad) porque el seguro es un contrato de <em>máxima buena fe</em>.</p>
+        <p class="regla-memoria"><strong>Memoria:</strong> reticencia = mentir u ocultar al declarar el riesgo. La sanción es fuerte (nulidad) porque el seguro es un contrato de <em>máxima buena fe</em>: el asegurador tarifa a ciegas sobre lo que vos declarás.</p>
       </div>
     </details>
 
@@ -327,27 +354,46 @@
       <summary>Póliza <span class="art-chip">arts. 11–14</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 11</dt>
-          <dd>El contrato solo puede <span class="ojo">probarse por escrito</span> (aunque se admiten los demás medios si hay principio de prueba por escrito). Enumera el contenido de la póliza.</dd>
-          <dt>Art. 12</dt>
-          <dd>Si la póliza difiere de la propuesta, la diferencia se considera aprobada si el tomador no reclama dentro de <span class="ojo">1 mes</span> de recibirla (el asegurador debe advertirlo en cláusula destacada).</dd>
-          <dt>Arts. 13–14</dt>
-          <dd>Robo, pérdida o destrucción de la póliza; cesión y pólizas a la orden o al portador.</dd>
+          <dt>Art. 11 · <span class="tema">Prueba y contenido</span></dt>
+          <dd>El contrato solo puede <span class="ojo">probarse por escrito</span> (los demás medios se admiten si hay principio de prueba por escrito). El asegurador entrega una póliza firmada, de redacción clara, con: partes, interés o persona asegurada, riesgos, plazo, prima, suma asegurada y condiciones generales.</dd>
+          <dt>Art. 12 · <span class="tema">Diferencias con la propuesta</span></dt>
+          <dd>Si la póliza difiere de la propuesta, la diferencia se considera <span class="ojo">aprobada si el tomador no reclama dentro de 1 mes</span> de recibirla. Vale solo si el asegurador lo advirtió en <span class="ojo">cláusula destacada en el anverso</span>; la impugnación no afecta el resto del contrato.
+            <div class="ejemplo"><b>Ejemplo:</b> pediste incendio + robo y la póliza llegó solo con incendio. Si dejás pasar el mes sin reclamar, quedó contratado solo incendio.</div></dd>
+          <dt>Art. 13 · <span class="tema">Robo, pérdida o destrucción</span></dt>
+          <dd>El asegurado puede obtener una <span class="ojo">copia de la póliza</span> a su costa, y también copia de sus propias propuestas y declaraciones.</dd>
+          <dt>Art. 14 · <span class="tema">Póliza a la orden o al portador</span></dt>
+          <dd>En los seguros de daños la póliza puede emitirse a la orden o al portador; su transferencia transmite los derechos contra el asegurador, quien puede oponer <span class="ojo">las mismas defensas</span> que tenía contra el asegurado original.</dd>
         </dl>
         <p class="regla-memoria"><strong>Memoria:</strong> la póliza <em>prueba</em> el contrato, no lo <em>crea</em> (eso ya lo hizo el consentimiento, art. 4).</p>
       </div>
     </details>
 
     <details class="ficha">
-      <summary>Plazo y vigencia <span class="art-chip">arts. 15–20</span></summary>
+      <summary>Denuncias, declaraciones y domicilio <span class="art-chip">arts. 15–16</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 15</dt>
-          <dd>Denuncias y declaraciones: se hacen por escrito; la <span class="ojo">mora es automática</span>.</dd>
-          <dt>Art. 17</dt>
-          <dd>Se presume que el período de seguro es de <span class="ojo">1 año</span>, salvo pacto o naturaleza del riesgo distintos.</dd>
-          <dt>Art. 18</dt>
-          <dd>La cobertura comienza a las <span class="ojo">12 horas</span> del día inicial y termina a las 12 horas del último día. Cualquiera de las partes puede rescindir sin causa si se pactó (preaviso: asegurador 15 días; asegurado sin preaviso).</dd>
+          <dt>Art. 15 · <span class="tema">Cargas. Mora automática</span></dt>
+          <dd>Las denuncias y declaraciones impuestas por la ley o el contrato se consideran cumplidas si se <span class="ojo">expiden dentro del término</span> fijado. La <span class="ojo">mora es automática</span>: se produce por el solo vencimiento del plazo, sin interpelación.
+            <div class="ejemplo"><b>Ejemplo:</b> si mandaste la denuncia por carta el día 3, cumpliste aunque a la aseguradora le llegue el día 6 — lo que cuenta es el despacho.</div></dd>
+          <dt>Art. 16 · <span class="tema">Jurisdicción y domicilio</span></dt>
+          <dd>Es admisible la prórroga de jurisdicción <span class="ojo">dentro del país</span>. El domicilio para denuncias y declaraciones es el <span class="ojo">último declarado</span>.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Plazo y vigencia <span class="art-chip">arts. 17–20</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 17 · <span class="tema">Período de seguro</span></dt>
+          <dd>Se presume que el período de seguro es de <span class="ojo">1 año</span>, salvo que por la naturaleza del riesgo la prima se calcule por tiempo distinto.</dd>
+          <dt>Art. 18 · <span class="tema">Comienzo, fin y rescisión sin causa</span></dt>
+          <dd>La responsabilidad del asegurador comienza a las <span class="ojo">12 horas</span> del primer día y termina a las 12 horas del último, salvo pacto. Si se convino la facultad, cualquiera puede <span class="ojo">rescindir sin causa</span>: el asegurador con preaviso mínimo de <span class="ojo">15 días</span> (reembolsa prima proporcional); el asegurado, quedando el asegurador con la prima de tarifa de corto plazo.
+            <div class="ejemplo"><b>Ejemplo:</b> la póliza empieza el 1° de marzo: un choque del 1° a las 9 de la mañana <em>no</em> está cubierto; uno de las 13 hs, sí.</div></dd>
+          <dt>Art. 19 · <span class="tema">Prórroga tácita</span></dt>
+          <dd>La prórroga tácita pactada solo vale por <span class="ojo">un período de seguro</span> como máximo, salvo en los seguros flotantes.</dd>
+          <dt>Art. 20 · <span class="tema">Liquidación y cesión de cartera</span></dt>
+          <dd>La liquidación voluntaria del asegurador y la cesión de cartera aprobada por la autoridad de control <span class="ojo">no autorizan la rescisión</span> del contrato.</dd>
         </dl>
       </div>
     </details>
@@ -356,9 +402,21 @@
       <summary>Seguro por cuenta ajena <span class="art-chip">arts. 21–26</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Arts. 21–26</dt>
-          <dd>Distinción <span class="ojo">tomador</span> (contrata y paga) / <span class="ojo">asegurado</span> (titular del interés). El tomador puede contratar por cuenta de un tercero, incluso sin designarlo ("por cuenta de quien corresponda"). Los derechos del contrato corresponden al asegurado; el tomador puede cobrar si tiene la póliza y consentimiento.</dd>
+          <dt>Art. 21 · <span class="tema">Concepto</span></dt>
+          <dd>El contrato puede celebrarse <span class="ojo">por cuenta ajena</span>, con o sin designación del tercero asegurado. En la duda, se presume por cuenta propia. La cláusula <span class="ojo">"por cuenta de quien corresponda"</span> se rige por esta sección cuando resulte que se aseguró un interés ajeno.
+            <div class="ejemplo"><b>Ejemplo:</b> el consorcio (tomador) asegura el edificio por cuenta de los copropietarios (asegurados); o un depósito asegura la mercadería de sus clientes "por cuenta de quien corresponda".</div></dd>
+          <dt>Art. 22 · <span class="tema">Obligación del asegurador</span></dt>
+          <dd>El seguro por cuenta ajena obliga al asegurador <span class="ojo">aun cuando el tercero asegurado invoque el contrato después</span> de ocurrido el siniestro.</dd>
+          <dt>Art. 23 · <span class="tema">Derechos del tomador</span></dt>
+          <dd>El tomador puede disponer a nombre propio de los derechos del contrato y cobrar la indemnización, pero el asegurador puede exigir que <span class="ojo">acredite el consentimiento del asegurado</span>, salvo que tenga la póliza en su poder.</dd>
+          <dt>Art. 24 · <span class="tema">Derechos del asegurado</span></dt>
+          <dd>Los derechos del contrato corresponden al asegurado <span class="ojo">si posee la póliza</span>; sin ella, no puede disponer de esos derechos ni ejercerlos judicialmente sin consentimiento del tomador.</dd>
+          <dt>Art. 25 · <span class="tema">Retención de la póliza</span></dt>
+          <dd>El tomador no está obligado a entregar la póliza al asegurado (ni al síndico de su quiebra) hasta que le paguen lo que le corresponde por el contrato; cobra <span class="ojo">con prelación</span> sobre el importe debido por el asegurador.</dd>
+          <dt>Art. 26 · <span class="tema">Conocimiento</span></dt>
+          <dd>Para aplicar el art. 10 (reticencia), no puede alegarse que el contrato se celebró sin conocimiento del asegurado si al concertarlo <span class="ojo">no se avisó al asegurador</span> que se actuaba por cuenta de un tercero.</dd>
         </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> <em>tomador</em> = quien contrata y paga; <em>asegurado</em> = titular del interés. Pueden ser la misma persona o no.</p>
       </div>
     </details>
 
@@ -366,14 +424,28 @@
       <summary>Prima <span class="art-chip">arts. 27–35</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 27</dt>
-          <dd>El <span class="ojo">tomador</span> es el obligado al pago. El asegurador no puede rehusar el pago ofrecido por un tercero con interés.</dd>
-          <dt>Art. 30</dt>
-          <dd>Lugar de pago: domicilio del asegurador (salvo pacto o costumbre de cobrar a domicilio).</dd>
-          <dt>Art. 31</dt>
-          <dd>La clave: si la prima no se paga, el asegurador <span class="ojo">no responde por el siniestro ocurrido durante la mora</span> (suspensión de cobertura).</dd>
+          <dt>Art. 27 · <span class="tema">Obligado al pago</span></dt>
+          <dd>El <span class="ojo">tomador</span> es el obligado al pago. En el seguro por cuenta ajena, el asegurador puede exigirlo al asegurado si el tomador cae en insolvencia. El asegurador no puede rehusar el pago ofrecido por un <span class="ojo">tercero</span>, salvo oposición del asegurado.</dd>
+          <dt>Art. 28 · <span class="tema">Compensación</span></dt>
+          <dd>El asegurador puede <span class="ojo">compensar</span> sus créditos contra el tomador (primas adeudadas) con la indemnización debida al asegurado o al beneficiario.</dd>
+          <dt>Art. 29 · <span class="tema">Lugar de pago</span></dt>
+          <dd>La prima se paga en el <span class="ojo">domicilio del asegurador</span> o en el lugar convenido. Una <span class="ojo">práctica distinta</span> (sin mora del tomador) cambia el lugar de pago; el asegurador puede dejarla sin efecto avisando.
+            <div class="ejemplo"><b>Ejemplo:</b> si el cobrador pasó siempre por tu casa y un mes no vino, no podés quedar en mora: la práctica cambió el lugar de pago.</div></dd>
+          <dt>Art. 30 · <span class="tema">Exigibilidad</span></dt>
+          <dd>La prima se debe desde la celebración, pero es exigible <span class="ojo">contra entrega de la póliza</span> (salvo certificado provisorio de cobertura). La entrega de la póliza sin cobrar hace presumir la <span class="ojo">concesión de crédito</span> para pagarla.</dd>
+          <dt>Art. 31 · <span class="tema">Mora. Suspensión de cobertura</span></dt>
+          <dd>Si la prima no se paga en término, el asegurador <span class="ojo">no responde por el siniestro ocurrido antes del pago</span>. Además puede rescindir el contrato con un plazo de denuncia de <span class="ojo">1 mes</span>, y tiene derecho a la prima del período en curso.
+            <div class="ejemplo"><b>Ejemplo:</b> la cuota venció el 10 de julio y no la pagaste; el 15 de agosto te entran a robar → sin cobertura. Si pagabas el 14, el robo del 15 sí estaba cubierto.</div></dd>
+          <dt>Art. 32 · <span class="tema">Rehabilitación</span></dt>
+          <dd>Pagada la prima adeudada, la cobertura se <span class="ojo">rehabilita solo hacia el futuro</span>: los siniestros ocurridos durante la mora quedan definitivamente sin cobertura.</dd>
+          <dt>Art. 33 · <span class="tema">Pago del reajuste por reticencia</span></dt>
+          <dd>Cuando corresponde reajuste por reticencia (arts. 6–7), la diferencia de prima se paga <span class="ojo">dentro del mes</span> de comunicada al asegurado.</dd>
+          <dt>Art. 34 · <span class="tema">Riesgo declarado más grave</span></dt>
+          <dd>Si el asegurado denunció por error un riesgo <span class="ojo">más grave</span> que el real, tiene derecho a la rectificación de la prima por los períodos posteriores a la denuncia del error.</dd>
+          <dt>Art. 35 · <span class="tema">Reajuste por agravación</span></dt>
+          <dd>Cuando hay agravación del riesgo y el asegurador opta por no rescindir (o la rescisión es improcedente), corresponde <span class="ojo">reajustar la prima</span> al nuevo estado del riesgo desde la denuncia.</dd>
         </dl>
-        <p class="regla-memoria"><strong>Memoria:</strong> mora en la prima → cobertura <em>suspendida</em>, no contrato extinguido. Pagada la prima, la cobertura se rehabilita hacia el futuro.</p>
+        <p class="regla-memoria"><strong>Memoria:</strong> mora en la prima → cobertura <em>suspendida</em>, no contrato extinguido: las primas se siguen debiendo, pero el siniestro en mora no se paga nunca.</p>
       </div>
     </details>
 
@@ -381,8 +453,9 @@
       <summary>Caducidad convencional <span class="art-chip">art. 36</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 36</dt>
-          <dd>Regula las caducidades pactadas por incumplimiento de cargas del asegurado. Distingue cargas <span class="ojo">anteriores</span> al siniestro (el asegurador debe alegar la caducidad dentro del mes de conocido el incumplimiento) y <span class="ojo">posteriores</span> (solo libera si el incumplimiento influyó en la extensión de su obligación).</dd>
+          <dt>Art. 36 · <span class="tema">Régimen</span></dt>
+          <dd>Cuando la ley no fija el efecto de incumplir una carga, las partes pueden pactar la caducidad si el incumplimiento es culpable, con límites: <span class="ojo">a)</span> cargas <span class="ojo">anteriores</span> al siniestro: el asegurador debe alegar la caducidad <span class="ojo">dentro del mes</span> de conocer el incumplimiento (y si el siniestro ocurre antes, debe la prestación si el incumplimiento no influyó); <span class="ojo">b)</span> cargas <span class="ojo">posteriores</span>: se libera solo si el incumplimiento <span class="ojo">influyó</span> en la extensión de su obligación. La prima queda debida igual.
+            <div class="ejemplo"><b>Ejemplo:</b> la póliza exige avisar si el local queda deshabitado más de 30 días (carga anterior). Si no avisaste pero el robo ocurrió igual que si hubiera estado habitado, la caducidad no funciona.</div></dd>
         </dl>
       </div>
     </details>
@@ -391,14 +464,28 @@
       <summary>Agravación del riesgo <span class="art-chip">arts. 37–45</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 37</dt>
-          <dd>Toda agravación del riesgo que, de haber existido al contratar, habría impedido el contrato o modificado sus condiciones, es causa de <span class="ojo">rescisión</span>.</dd>
-          <dt>Art. 38</dt>
-          <dd>El tomador debe <span class="ojo">denunciar</span> las agravaciones causadas por hecho suyo antes de que se produzcan, y las ajenas apenas las conozca.</dd>
-          <dt>Arts. 39–40</dt>
-          <dd>Agravación por hecho del tomador: cobertura <span class="ojo">suspendida</span>; por hecho ajeno: el asegurador puede rescindir con preaviso.</dd>
+          <dt>Art. 37 · <span class="tema">Concepto</span></dt>
+          <dd>Toda agravación del riesgo que, de haber existido al contratar, habría impedido el contrato o modificado sus condiciones, es causa de <span class="ojo">rescisión</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> aseguraste una casa de veraneo y la convertiste en depósito de garrafas; o el auto particular pasó a trabajar de remís.</div></dd>
+          <dt>Art. 38 · <span class="tema">Denuncia</span></dt>
+          <dd>El tomador debe denunciar las agravaciones causadas por <span class="ojo">hecho suyo antes</span> de que se produzcan, y las <span class="ojo">ajenas apenas las conozca</span>.</dd>
+          <dt>Art. 39 · <span class="tema">Por hecho del tomador</span></dt>
+          <dd>La cobertura queda <span class="ojo">suspendida</span>. El asegurador debe notificar su decisión de rescindir dentro de <span class="ojo">7 días</span>.</dd>
+          <dt>Art. 40 · <span class="tema">Por hecho ajeno</span></dt>
+          <dd>El asegurador debe notificar la rescisión dentro de <span class="ojo">1 mes</span> y con preaviso de <span class="ojo">7 días</span>. Cubre el siniestro ocurrido mientras no rescinda, salvo agravación no denunciada.</dd>
+          <dt>Art. 41 · <span class="tema">Efectos sobre la prima</span></dt>
+          <dd>Rescindido el contrato: si la agravación fue <span class="ojo">denunciada a tiempo</span>, el asegurador percibe la prima proporcional al tiempo transcurrido; si no, la prima de <span class="ojo">todo el período en curso</span>.</dd>
+          <dt>Art. 42 · <span class="tema">Extinción del derecho</span></dt>
+          <dd>El derecho a rescindir se <span class="ojo">extingue</span> si no se ejerce en los plazos legales o si la agravación desapareció.</dd>
+          <dt>Art. 43 · <span class="tema">Excepciones</span></dt>
+          <dd>No hay agravación sancionable si se causó para <span class="ojo">precaver el siniestro</span>, atenuar sus consecuencias, o por un <span class="ojo">deber de humanidad</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> guardaste en tu galpón asegurado los muebles del vecino inundado: aunque aumente el riesgo, no te pueden rescindir por eso.</div></dd>
+          <dt>Art. 44 · <span class="tema">Entre propuesta y aceptación</span></dt>
+          <dd>Estas reglas también se aplican a la agravación producida <span class="ojo">entre la propuesta y la aceptación</span>, si el asegurador no la conocía al aceptar.</dd>
+          <dt>Art. 45 · <span class="tema">Pluralidad de intereses</span></dt>
+          <dd>Si el contrato comprende varios intereses o personas y la agravación afecta solo a parte, el asegurador puede rescindir <span class="ojo">todo</span> el contrato si no lo habría celebrado así; si rescinde solo una parte, el tomador puede rescindir el resto.</dd>
         </dl>
-        <p class="regla-memoria"><strong>Memoria:</strong> el riesgo declarado es la base del contrato; si cambia para peor, hay que avisar o se pierde la cobertura.</p>
+        <p class="regla-memoria"><strong>Memoria:</strong> el riesgo declarado es la base del negocio. Si empeora: por hecho tuyo → denuncia previa y suspensión; por hecho ajeno → denuncia inmediata y sigue la cobertura hasta la rescisión.</p>
       </div>
     </details>
 
@@ -406,38 +493,74 @@
       <summary>Denuncia del siniestro y cargas <span class="art-chip">arts. 46–48</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 46</dt>
-          <dd>El asegurado debe denunciar el siniestro dentro de los <span class="ojo">3 días</span> de conocerlo, y suministrar la información necesaria para verificar el siniestro y la magnitud del daño (información complementaria si es razonable).</dd>
-          <dt>Art. 47</dt>
-          <dd>Pierde el derecho a ser indemnizado quien omite la denuncia del art. 46, salvo caso fortuito, fuerza mayor o imposibilidad de hecho sin culpa.</dd>
-          <dt>Art. 48</dt>
-          <dd>Pierde el derecho quien <span class="ojo">exagera fraudulentamente</span> los daños o emplea prueba falsa.</dd>
+          <dt>Art. 46 · <span class="tema">Denuncia e información</span></dt>
+          <dd>El asegurado debe <span class="ojo">denunciar el siniestro dentro de los 3 días</span> de conocerlo. Debe además suministrar la <span class="ojo">información necesaria</span> para verificar el siniestro y la magnitud del daño, y la <span class="ojo">información complementaria</span> y prueba instrumental que razonablemente se le requiera.
+            <div class="ejemplo"><b>Ejemplo:</b> el incendio fue el lunes → tenés hasta el jueves para denunciarlo. Después la aseguradora te pide la factura del televisor quemado: eso es la información complementaria.</div></dd>
+          <dt>Art. 47 · <span class="tema">Sanción por no denunciar</span></dt>
+          <dd>Quien omite la denuncia del art. 46 <span class="ojo">pierde el derecho a ser indemnizado</span>, salvo caso fortuito, fuerza mayor o imposibilidad de hecho sin culpa.</dd>
+          <dt>Art. 48 · <span class="tema">Exageración fraudulenta</span></dt>
+          <dd>Pierde el derecho quien <span class="ojo">exagera fraudulentamente</span> los daños o emplea <span class="ojo">prueba falsa</span> para acreditarlos.
+            <div class="ejemplo"><b>Ejemplo:</b> te robaron un televisor y denunciás dos, con un ticket trucho del segundo → perdés todo el derecho, incluso por el que sí te robaron.</div></dd>
         </dl>
-        <p class="regla-memoria"><strong>Memoria:</strong> 46 = carga de avisar e informar · 47 = sanción por no avisar · 48 = sanción por mentir sobre el daño.</p>
+        <p class="regla-memoria"><strong>Memoria:</strong> 46 = avisar e informar · 47 = sanción por no avisar · 48 = sanción por mentir sobre el daño.</p>
       </div>
     </details>
 
     <details class="ficha">
-      <summary>Pago y pronunciamiento del asegurador <span class="art-chip">arts. 49–51 y 56</span></summary>
+      <summary>Pago de la indemnización <span class="art-chip">arts. 49–52</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 49</dt>
-          <dd>Daños: el asegurador paga dentro de los <span class="ojo">15 días</span> de fijado el monto o aceptada la indemnización. Personas: 15 días de la denuncia o de acompañada la información complementaria.</dd>
-          <dt>Art. 51</dt>
-          <dd>El asegurado puede exigir un <span class="ojo">pago a cuenta</span> si el procedimiento para fijar el monto se demora más de un mes desde la denuncia.</dd>
-          <dt>Art. 56</dt>
-          <dd>El asegurador debe <span class="ojo">pronunciarse sobre el derecho del asegurado dentro de los 30 días</span> de recibida la información complementaria. <span class="ojo">El silencio importa aceptación</span>.</dd>
+          <dt>Art. 49 · <span class="tema">Época del pago</span></dt>
+          <dd>En los seguros de daños, el asegurador paga dentro de los <span class="ojo">15 días</span> de fijado el monto o de aceptada la indemnización ofrecida. En los seguros de personas, dentro de los 15 días de la denuncia o de acompañada la información complementaria.</dd>
+          <dt>Art. 50 · <span class="tema">Mora del asegurador</span></dt>
+          <dd>Es <span class="ojo">nulo</span> el convenio que exonere al asegurador de la responsabilidad por su mora.</dd>
+          <dt>Art. 51 · <span class="tema">Pago a cuenta</span></dt>
+          <dd>Si el asegurador estimó el daño y reconoció el derecho, y la liquidación no terminó <span class="ojo">un mes</span> después de la denuncia, el asegurado puede reclamar un <span class="ojo">pago a cuenta</span> no menor a la <span class="ojo">mitad</span> de lo reconocido u ofrecido.
+            <div class="ejemplo"><b>Ejemplo:</b> reconocieron el siniestro de incendio pero la liquidación final se demora meses: podés exigir ya la mitad de lo que ofrecieron, para empezar a reconstruir.</div></dd>
+          <dt>Art. 52 · <span class="tema">Rescisión por siniestro parcial</span></dt>
+          <dd>Tras un daño parcial, <span class="ojo">ambas partes pueden rescindir</span> hasta el pago de la indemnización. Si rescinde el asegurador, su responsabilidad cesa <span class="ojo">15 días</span> después de notificar y reembolsa prima proporcional; si rescinde el asegurado, el asegurador conserva la prima del período en curso.</dd>
         </dl>
-        <p class="regla-memoria"><strong>Memoria:</strong> el art. 56 es de los más citados en juicios: si la aseguradora no rechaza en 30 días, aceptó el siniestro.</p>
       </div>
     </details>
 
     <details class="ficha">
-      <summary>Prescripción <span class="art-chip">art. 58</span></summary>
+      <summary>Productores y agentes <span class="art-chip">arts. 53–55</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 58</dt>
-          <dd>Las acciones fundadas en el contrato de seguro prescriben en <span class="ojo">1 año</span> desde que la obligación es exigible. En el seguro de vida, para el beneficiario, desde que conoce la existencia del beneficio (tope: 3 años desde el siniestro). Los actos del procedimiento para liquidar el daño <span class="ojo">interrumpen</span> la prescripción. No puede abreviarse por contrato.</dd>
+          <dt>Art. 53 · <span class="tema">Productor no institorio</span></dt>
+          <dd>El productor o agente solo está facultado para: <span class="ojo">a)</span> recibir propuestas, <span class="ojo">b)</span> entregar los instrumentos emitidos por el asegurador, <span class="ojo">c)</span> aceptar el pago de la prima <span class="ojo">si tiene recibo del asegurador</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> pagarle al productor sin recibo oficial de la compañía es riesgoso: legalmente puede no contar como pago a la aseguradora.</div></dd>
+          <dt>Art. 54 · <span class="tema">Agente institorio</span></dt>
+          <dd>Si el asegurador designa un representante con facultades para actuar en su nombre, se aplican las reglas del <span class="ojo">mandato</span>: puede celebrar seguros, pactar modificaciones, recibir notificaciones y declarar rescisiones, salvo limitación expresa.</dd>
+          <dt>Art. 55 · <span class="tema">Conocimiento equivalente</span></dt>
+          <dd>El conocimiento del agente institorio <span class="ojo">equivale al del asegurador</span> respecto de los seguros que está autorizado a celebrar.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Pronunciamiento y peritos <span class="art-chip">arts. 56–57</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 56 · <span class="tema">Pronunciamiento del asegurador</span></dt>
+          <dd>El asegurador debe pronunciarse sobre el derecho del asegurado dentro de los <span class="ojo">30 días</span> de recibida la información complementaria (art. 46). <span class="ojo">La omisión importa aceptación</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> denunciaste el robo, entregaste todo lo que pidieron y pasaron 40 días sin respuesta → el siniestro quedó aceptado; ya no pueden rechazarlo.</div></dd>
+          <dt>Art. 57 · <span class="tema">Cláusulas compromisorias</span></dt>
+          <dd>Son <span class="ojo">nulas las cláusulas compromisorias</span> (arbitraje pactado en la póliza). La valuación del daño sí puede someterse a <span class="ojo">juicio de peritos</span>.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> el art. 56 es de los más citados en juicios: silencio del asegurador por 30 días = siniestro aceptado.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Prescripción <span class="art-chip">arts. 58–59</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 58 · <span class="tema">Término</span></dt>
+          <dd>Las acciones fundadas en el contrato prescriben en <span class="ojo">1 año</span> desde que la obligación es exigible. Prima en cuotas: desde el vencimiento de la última. Vida: para el beneficiario, desde que <span class="ojo">conoce el beneficio</span>, con tope de <span class="ojo">3 años</span> desde el siniestro. Los actos del procedimiento de liquidación <span class="ojo">interrumpen</span> la prescripción.
+            <div class="ejemplo"><b>Ejemplo:</b> te rechazaron el siniestro en marzo de 2025 y no hiciste nada: en marzo de 2026 tu acción judicial prescribió.</div></dd>
+          <dt>Art. 59 · <span class="tema">Abreviación prohibida</span></dt>
+          <dd>El plazo de prescripción <span class="ojo">no puede abreviarse</span> por contrato; tampoco es válido fijar plazo para interponer la acción judicial.</dd>
         </dl>
       </div>
     </details>
@@ -447,90 +570,247 @@
 
 <!-- ================= CAP II ================= -->
 <section id="danos">
-  <h2>Capítulo II — Seguros de daños patrimoniales</h2>
-  <p class="h2-nota">Principio rector: el seguro de daños es <strong>indemnizatorio</strong> — repara el daño sufrido, nunca puede ser fuente de ganancia. Primero las reglas comunes, después las ramas.</p>
+  <h2>Capítulo II — Seguros de daños patrimoniales <span class="art-chip">arts. 60–127</span></h2>
+  <p class="h2-nota">Principio rector: el seguro de daños es <strong>indemnizatorio</strong> — repara el daño sufrido, nunca puede ser fuente de ganancia. Primero las reglas comunes a todo seguro de daños, después cada rama.</p>
 
   <div class="fichas">
 
     <details class="ficha">
-      <summary>Interés asegurable y medida de la indemnización <span class="art-chip">arts. 60–67</span></summary>
+      <summary>Interés asegurable y suma asegurada <span class="art-chip">arts. 60–66</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 60</dt>
-          <dd>Puede asegurarse cualquier <span class="ojo">interés económico lícito</span> respecto de un bien.</dd>
-          <dt>Art. 61</dt>
-          <dd>El asegurador resarce el daño hasta el monto de la suma asegurada; la indemnización <span class="ojo">nunca puede superar el daño efectivamente sufrido</span> (prohibición de enriquecimiento).</dd>
-          <dt>Arts. 62–65</dt>
-          <dd><span class="ojo">Sobreseguro</span>: si la suma supera el valor del bien, solo se debe el perjuicio real (si hubo dolo del asegurado, el contrato es nulo). <span class="ojo">Infraseguro</span>: si la suma es menor al valor, rige la <span class="ojo">regla proporcional</span> — el asegurador indemniza en proporción. Puede pactarse <span class="ojo">valor tasado</span>.</dd>
-          <dt>Art. 67</dt>
-          <dd><span class="ojo">Pluralidad de seguros</span>: quien asegura el mismo interés y riesgo con más de un asegurador debe notificarlo a cada uno; cada asegurador contribuye a prorrata. Asegurar dos veces para cobrar dos veces es nulo.</dd>
+          <dt>Art. 60 · <span class="tema">Interés asegurable</span></dt>
+          <dd>Puede asegurarse cualquier riesgo si existe <span class="ojo">interés económico lícito</span> de que el siniestro no ocurra.
+            <div class="ejemplo"><b>Ejemplo:</b> el inquilino puede asegurar el departamento que alquila (responde ante el dueño), y el banco puede asegurar la casa hipotecada: los dos tienen interés económico, sin ser dueños.</div></dd>
+          <dt>Art. 61 · <span class="tema">Medida de la indemnización</span></dt>
+          <dd>El asegurador resarce el daño patrimonial causado por el siniestro, <span class="ojo">sin incluir el lucro cesante salvo pacto expreso</span>. Responde solo hasta la <span class="ojo">suma asegurada</span>, y si ésta supera el valor del interés, solo hasta el daño efectivo.</dd>
+          <dt>Art. 62 · <span class="tema">Sobreseguro. Nulidad por fraude</span></dt>
+          <dd>Si la suma asegurada supera notablemente el valor del interés, cualquiera puede pedir su <span class="ojo">reducción</span>. El contrato es <span class="ojo">nulo</span> si se celebró para enriquecerse con el excedente; el asegurador de buena fe conserva la prima del período en que lo conoce.</dd>
+          <dt>Art. 63 · <span class="tema">Valor tasado</span></dt>
+          <dd>El valor del bien puede fijarse en la póliza como <span class="ojo">tasación</span>: esa estimación vale al momento del siniestro, salvo que el asegurador pruebe que supera notablemente el valor real.</dd>
+          <dt>Art. 64 · <span class="tema">Universalidad</span></dt>
+          <dd>Si el contrato asegura una <span class="ojo">universalidad o conjunto de cosas</span>, comprende también las que se incorporen después.
+            <div class="ejemplo"><b>Ejemplo:</b> asegurás "el stock de mercadería del local": la mercadería que compraste después de contratar también está cubierta.</div></dd>
+          <dt>Art. 65 · <span class="tema">Sobreseguro e infraseguro</span></dt>
+          <dd>Al tiempo del siniestro: si el valor asegurado <span class="ojo">excede</span> el asegurable, solo se resarce el perjuicio efectivo (el asegurador cobra toda la prima). Si es <span class="ojo">inferior</span>, el asegurador indemniza <span class="ojo">en proporción</span> (regla proporcional), salvo pacto en contrario.
+            <div class="ejemplo"><b>Ejemplo (infraseguro):</b> la casa vale $100M y la aseguraste por $50M (la mitad). Un incendio parcial causa $20M de daño → cobrás $10M: la mitad, porque solo aseguraste la mitad del valor.</div></dd>
+          <dt>Art. 66 · <span class="tema">Vicio propio</span></dt>
+          <dd>El asegurador no indemniza los daños causados por <span class="ojo">vicio propio</span> de la cosa, salvo pacto en contrario. En infraseguro, reembolsa en la proporción del art. 65.
+            <div class="ejemplo"><b>Ejemplo:</b> la humedad de una pared mal construida arruina el piso: es vicio propio del inmueble, no un siniestro cubierto.</div></dd>
         </dl>
-        <p class="regla-memoria"><strong>Memoria:</strong> infraseguro → regla de tres: indemnización = daño × (suma asegurada / valor asegurable).</p>
+        <p class="regla-memoria"><strong>Memoria:</strong> infraseguro → regla de tres: indemnización = daño × (suma asegurada ÷ valor asegurable).</p>
       </div>
     </details>
 
     <details class="ficha">
-      <summary>Provocación del siniestro y salvamento <span class="art-chip">arts. 70–73</span></summary>
+      <summary>Pluralidad de seguros <span class="art-chip">arts. 67–69</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 70</dt>
-          <dd>El asegurador queda <span class="ojo">liberado</span> si el asegurado o beneficiario provoca el siniestro con <span class="ojo">dolo o culpa grave</span>. La culpa leve está cubierta.</dd>
-          <dt>Arts. 72–73</dt>
-          <dd>Carga de <span class="ojo">salvamento</span>: el asegurado debe hacer lo posible para evitar o disminuir el daño y seguir las instrucciones del asegurador. El asegurador <span class="ojo">reembolsa los gastos</span> de salvamento, aun infructuosos.</dd>
-        </dl>
-      </div>
-    </details>
-
-    <details class="ficha">
-      <summary>Liquidación, abandono y subrogación <span class="art-chip">arts. 74–82</span></summary>
-      <div class="ficha-cuerpo">
-        <dl>
-          <dt>Art. 74</dt>
-          <dd>El asegurado <span class="ojo">no puede hacer abandono</span> de los bienes dañados al asegurador (salvo pacto).</dd>
-          <dt>Arts. 75–78</dt>
-          <dd>Verificación y valuación del daño: <span class="ojo">juicio de peritos</span> si se pactó; el asegurado puede hacerse asistir.</dd>
-          <dt>Art. 80</dt>
-          <dd><span class="ojo">Subrogación</span>: pagada la indemnización, los derechos del asegurado contra el tercero responsable pasan al asegurador hasta el monto pagado. <span class="ojo">No aplica en seguros de personas</span>.</dd>
-          <dt>Art. 82</dt>
-          <dd>Cambio de titular del interés asegurado: debe notificarse al asegurador dentro de los <span class="ojo">7 días</span>.</dd>
+          <dt>Art. 67 · <span class="tema">Notificación y contribución</span></dt>
+          <dd>Quien asegura el <span class="ojo">mismo interés y riesgo con más de un asegurador</span> debe notificarlo sin dilación a cada uno, <span class="ojo">bajo pena de caducidad</span>. En el siniestro, cada asegurador contribuye <span class="ojo">proporcionalmente</span> a su contrato hasta la indemnización debida.
+            <div class="ejemplo"><b>Ejemplo:</b> el mismo galpón asegurado contra incendio en dos compañías por $60M y $40M: ante un daño de $50M pagan $30M y $20M — no $50M cada una.</div></dd>
+          <dt>Art. 68 · <span class="tema">Prohibición de enriquecerse</span></dt>
+          <dd>El asegurado no puede cobrar en conjunto más que el <span class="ojo">daño sufrido</span>. Los contratos hechos con intención de enriquecerse son <span class="ojo">nulos</span>; los aseguradores de buena fe conservan la prima devengada.</dd>
+          <dt>Art. 69 · <span class="tema">Seguro celebrado sin saber del anterior</span></dt>
+          <dd>Quien contrató ignorando el seguro anterior puede pedir la <span class="ojo">rescisión del más reciente</span> o la reducción de su suma al monto no cubierto, con baja proporcional de prima. Debe pedirlo apenas lo conozca y <span class="ojo">antes del siniestro</span>.</dd>
         </dl>
       </div>
     </details>
 
     <details class="ficha">
-      <summary>Ramas en particular <span class="art-chip">arts. 85–127</span></summary>
+      <summary>Provocación, guerra y salvamento <span class="art-chip">arts. 70–73</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>85–89</dt>
-          <dd><span class="ojo">Incendio</span>: el asegurador indemniza el daño causado por la acción directa o indirecta del fuego y las medidas para extinguirlo. Terremoto, guerra o motín no están cubiertos salvo pacto.</dd>
-          <dt>90–97</dt>
-          <dd><span class="ojo">Agricultura</span> (granizo, helada): daños a los frutos y productos; reglas propias de denuncia y valuación.</dd>
-          <dt>98–108</dt>
-          <dd><span class="ojo">Animales</span>: mortalidad del ganado; cargas especiales de cuidado y asistencia veterinaria.</dd>
-          <dt>109–120</dt>
-          <dd><span class="ojo">Responsabilidad civil</span>: la estrella del capítulo — ver ficha siguiente.</dd>
-          <dt>121–127</dt>
-          <dd><span class="ojo">Transporte</span>: por tierra rige esta ley; comprende mercaderías, vehículo y responsabilidad del transportista.</dd>
+          <dt>Art. 70 · <span class="tema">Provocación del siniestro</span></dt>
+          <dd>El asegurador queda <span class="ojo">liberado</span> si el tomador o beneficiario provoca el siniestro con <span class="ojo">dolo o culpa grave</span>. Se excluyen los actos para precaver el siniestro, atenuarlo, o por deber de humanidad.
+            <div class="ejemplo"><b>Ejemplo:</b> prender fuego el local para cobrar (dolo) o soldar con amoladora al lado de bidones de nafta destapados (culpa grave) → sin cobertura. Olvidarte una hornalla prendida (culpa leve) → cubierto.</div></dd>
+          <dt>Art. 71 · <span class="tema">Guerra y motín</span></dt>
+          <dd>No se cubren los daños causados por <span class="ojo">guerra civil o internacional, motín o tumulto popular</span>, salvo convención en contrario.</dd>
+          <dt>Art. 72 · <span class="tema">Carga de salvamento</span></dt>
+          <dd>El asegurado debe hacer lo posible para <span class="ojo">evitar o disminuir el daño</span> y seguir las instrucciones del asegurador. Si viola esta carga con dolo o culpa grave, el asegurador se libera <span class="ojo">en la medida en que el daño habría sido menor</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> se inunda el depósito y, pudiendo, no movés la mercadería del piso: lo que se arruinó por no moverla no te lo pagan.</div></dd>
+          <dt>Art. 73 · <span class="tema">Reembolso de gastos</span></dt>
+          <dd>El asegurador <span class="ojo">reembolsa los gastos de salvamento</span> no manifiestamente desacertados, aun infructuosos o que excedan la suma asegurada.</dd>
         </dl>
       </div>
     </details>
 
     <details class="ficha">
-      <summary>Responsabilidad civil en detalle <span class="art-chip">arts. 109–120</span></summary>
+      <summary>Verificación y liquidación del daño <span class="art-chip">arts. 74–79</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 109</dt>
-          <dd>El asegurador mantiene <span class="ojo">indemne</span> al asegurado por cuanto deba a un tercero por la responsabilidad prevista, a consecuencia de un hecho ocurrido en el plazo convenido.</dd>
-          <dt>Arts. 110–111</dt>
-          <dd>La garantía comprende las <span class="ojo">costas judiciales</span> y los gastos de defensa civil; las <span class="ojo">penas</span> (multas, sanciones) no son asegurables.</dd>
-          <dt>Art. 114</dt>
-          <dd>El asegurado pierde cobertura si provocó el hecho con <span class="ojo">dolo o culpa grave</span>.</dd>
-          <dt>Arts. 115–116</dt>
-          <dd>Cargas: denunciar el hecho y las demandas; <span class="ojo">no reconocer responsabilidad ni transar</span> sin anuencia del asegurador.</dd>
-          <dt>Art. 118</dt>
-          <dd>El crédito del damnificado tiene <span class="ojo">privilegio</span> sobre la suma asegurada; el damnificado puede <span class="ojo">citar en garantía</span> al asegurador en el juicio contra el asegurado, y la sentencia es ejecutable contra el asegurador <span class="ojo">"en la medida del seguro"</span>.</dd>
+          <dt>Art. 74 · <span class="tema">Abandono prohibido</span></dt>
+          <dd>El asegurado <span class="ojo">no puede hacer abandono</span> de los bienes afectados por el siniestro, salvo pacto en contrario.</dd>
+          <dt>Art. 75 · <span class="tema">Representación del asegurado</span></dt>
+          <dd>El asegurado puede <span class="ojo">hacerse representar</span> en las diligencias de verificación y liquidación; es <span class="ojo">nulo todo pacto en contrario</span>. Los gastos de esa representación corren por su cuenta.</dd>
+          <dt>Art. 76 · <span class="tema">Gastos de verificación</span></dt>
+          <dd>Los gastos necesarios para verificar el siniestro y liquidar el daño son <span class="ojo">a cargo del asegurador</span>, salvo los causados por indicaciones inexactas del asegurado. Se excluye la remuneración del personal del asegurado.</dd>
+          <dt>Art. 77 · <span class="tema">Cambio en las cosas dañadas</span></dt>
+          <dd>El asegurado no puede, sin consentimiento del asegurador, introducir <span class="ojo">cambios que dificulten establecer la causa o el daño</span>, salvo para disminuir el daño o por interés público.
+            <div class="ejemplo"><b>Ejemplo:</b> después del incendio no tires los restos ni empieces a reconstruir hasta que pase el liquidador — salvo que sea para evitar más daño.</div></dd>
+          <dt>Art. 78 · <span class="tema">Pericia anulable</span></dt>
+          <dd>Si el monto se determina por peritos, el peritaje es <span class="ojo">anulable</span> si se aparta evidentemente del real estado de las cosas o del procedimiento pactado.</dd>
+          <dt>Art. 79 · <span class="tema">Participación del asegurador</span></dt>
+          <dd>La participación del asegurador en la pericia importa <span class="ojo">renunciar a invocar las causales de liberación</span> conocidas antes que sean incompatibles con esa participación.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Subrogación y cambio de titular <span class="art-chip">arts. 80–84</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 80 · <span class="tema">Subrogación</span></dt>
+          <dd>Pagada la indemnización, los derechos del asegurado contra el tercero responsable <span class="ojo">se transfieren al asegurador</span> hasta el monto pagado. No puede ejercerse en perjuicio del asegurado y es <span class="ojo">inaplicable en los seguros de personas</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> el vecino de arriba inunda tu departamento; tu aseguradora te paga $5M y después se los reclama ella al vecino (o a su aseguradora).</div></dd>
+          <dt>Art. 81 · <span class="tema">Inexistencia de interés</span></dt>
+          <dd>Si el interés asegurado no existe al comenzar la cobertura, el tomador <span class="ojo">se libera de pagar la prima</span>; el asegurador puede cobrar los gastos más un adicional de hasta el <span class="ojo">5%</span> de la prima.</dd>
+          <dt>Art. 82 · <span class="tema">Cambio de titular</span></dt>
+          <dd>El cambio de titular del interés debe <span class="ojo">notificarse al asegurador en 7 días</span> (salvo plazo mayor en póliza). El asegurador puede rescindir en <span class="ojo">20 días</span> con preaviso de <span class="ojo">15</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> vendiste el auto asegurado: tenés 7 días para avisar a la compañía; el seguro no pasa automáticamente y para siempre al comprador.</div></dd>
+          <dt>Art. 83 · <span class="tema">Venta forzada y herencia</span></dt>
+          <dd>El art. 82 se aplica a la <span class="ojo">venta forzada</span> (plazos desde la aprobación de la subasta), pero <span class="ojo">no a la transmisión hereditaria</span>: herederos y legatarios suceden en el contrato.</dd>
+          <dt>Art. 84 · <span class="tema">Hipoteca y prenda</span></dt>
+          <dd>El acreedor hipotecario o prendario que notifica su gravamen impide que el asegurador pague la indemnización <span class="ojo">sin avisarle antes</span> para que se oponga dentro de <span class="ojo">7 días</span> (salvo reparaciones).</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Rama: Incendio <span class="art-chip">arts. 85–89</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 85 · <span class="tema">Alcance</span></dt>
+          <dd>Se indemniza el daño causado por la <span class="ojo">acción directa o indirecta del fuego</span>, las medidas para extinguirlo, demolición, evacuación y similares, incluso los bienes <span class="ojo">extraviados durante el incendio</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> el agua de los bomberos arruinó los muebles que el fuego no tocó: también está cubierto — es acción indirecta.</div></dd>
+          <dt>Art. 86 · <span class="tema">Terremoto, explosión y rayo</span></dt>
+          <dd>El asegurador <span class="ojo">no responde</span> si el incendio o explosión es causado por <span class="ojo">terremoto</span>. Los daños por <span class="ojo">explosión o rayo</span> se equiparan a los de incendio.</dd>
+          <dt>Art. 87 · <span class="tema">Monto del resarcimiento</span></dt>
+          <dd>Se calcula: <span class="ojo">edificios</span> por su valor al tiempo del siniestro (salvo reconstrucción pactada); <span class="ojo">mercaderías propias</span> por costo de fabricación, las demás por precio de adquisición (nunca más que el precio de venta); <span class="ojo">animales, materias primas y moblaje</span> por su valor al tiempo del siniestro.</dd>
+          <dt>Art. 88 · <span class="tema">Lucro cesante</span></dt>
+          <dd>Si se incluye el lucro cesante, <span class="ojo">no puede convenirse su valor</span> por adelantado. Si el daño y el lucro se aseguran con aseguradores distintos, hay que <span class="ojo">notificar a ambos</span>.</dd>
+          <dt>Art. 89 · <span class="tema">Reconstrucción</span></dt>
+          <dd>Pactada la reconstrucción o reposición, el asegurador puede exigir que la indemnización <span class="ojo">se destine realmente a ella</span> y pedir <span class="ojo">garantías</span> suficientes.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Rama: Agricultura (granizo y helada) <span class="art-chip">arts. 90–97</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 90 · <span class="tema">Principio</span></dt>
+          <dd>En los seguros de la explotación agrícola, la indemnización puede limitarse a los daños de <span class="ojo">una etapa determinada</span> (siembra, cosecha u otras), sobre todos o algunos productos, y por cualquier riesgo que los dañe.</dd>
+          <dt>Art. 91 · <span class="tema">Granizo</span></dt>
+          <dd>El asegurador responde por los daños causados <span class="ojo">exclusivamente por el granizo</span>, aunque concurra con otros fenómenos meteorológicos.
+            <div class="ejemplo"><b>Ejemplo:</b> cae granizo con temporal de viento: se indemniza la parte del daño atribuible al granizo, no la que causó solo el viento.</div></dd>
+          <dt>Art. 92 · <span class="tema">Cálculo del daño</span></dt>
+          <dd>Se compara el <span class="ojo">valor que habrían tenido los frutos a la cosecha</span> sin siniestro con el valor después del daño (y su uso posible); el asegurador paga la diferencia.</dd>
+          <dt>Art. 93 · <span class="tema">Denuncia</span></dt>
+          <dd>La denuncia del siniestro se remite al asegurador en <span class="ojo">3 días</span>, si no se pactó un plazo mayor.</dd>
+          <dt>Art. 94 · <span class="tema">Postergación de la liquidación</span></dt>
+          <dd>Cualquiera de las partes puede pedir <span class="ojo">postergar la liquidación hasta la época de la cosecha</span>, salvo pacto en contrario.</dd>
+          <dt>Art. 95 · <span class="tema">Cambios en los frutos</span></dt>
+          <dd>Antes de determinarse el daño, el asegurado solo puede hacer sobre los frutos afectados los cambios que <span class="ojo">no admitan postergación</span> según las normas de adecuada explotación.</dd>
+          <dt>Art. 96 · <span class="tema">Venta del inmueble</span></dt>
+          <dd>Si se enajena el inmueble con los frutos dañados, el asegurador solo puede rescindir <span class="ojo">al vencer el período en curso</span> en que conoció la venta.</dd>
+          <dt>Art. 97 · <span class="tema">Helada</span></dt>
+          <dd>Los arts. 90 a 96 se aplican también al seguro de daños por <span class="ojo">helada</span>.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Rama: Animales <span class="art-chip">arts. 98–108</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 98 · <span class="tema">Principio</span></dt>
+          <dd>Puede asegurarse <span class="ojo">cualquier riesgo que afecte la vida o salud</span> de cualquier especie de animales.</dd>
+          <dt>Art. 99 · <span class="tema">Seguro de mortalidad</span></dt>
+          <dd>Se indemniza el daño por la <span class="ojo">muerte</span> del animal o por su <span class="ojo">incapacidad total y permanente</span>, si así se convino.</dd>
+          <dt>Art. 100 · <span class="tema">Exclusiones</span></dt>
+          <dd>Salvo pacto, no se cubren daños: por <span class="ojo">epizootia</span> o enfermedades con indemnización estatal; por <span class="ojo">incendio, rayo, explosión, inundación o terremoto</span>; ocurridos durante el <span class="ojo">transporte, carga o descarga</span>.</dd>
+          <dt>Art. 101 · <span class="tema">Subrogación especial</span></dt>
+          <dd>El asegurador se subroga (art. 80) también en los derechos del asegurado por los <span class="ojo">vicios redhibitorios</span> resarcidos.</dd>
+          <dt>Art. 102 · <span class="tema">Inspección</span></dt>
+          <dd>El asegurador puede <span class="ojo">inspeccionar y examinar</span> los animales en cualquier tiempo, a su costa.</dd>
+          <dt>Art. 103 · <span class="tema">Denuncia: 24 horas</span></dt>
+          <dd>El asegurado denuncia dentro de las <span class="ojo">24 horas</span> la muerte del animal y cualquier enfermedad o accidente, <span class="ojo">aunque no sea riesgo cubierto</span>.</dd>
+          <dt>Art. 104 · <span class="tema">Asistencia veterinaria</span></dt>
+          <dd>Ante enfermedad o accidente, debe dar <span class="ojo">inmediata intervención a un veterinario</span> (o a un práctico donde no exista).</dd>
+          <dt>Art. 105 · <span class="tema">Maltrato o descuido</span></dt>
+          <dd>Pierde el derecho quien <span class="ojo">maltrató o descuidó gravemente</span> al animal con dolo o culpa grave (en especial si no llamó al veterinario), salvo que la conducta no haya influido en el siniestro ni en la prestación.</dd>
+          <dt>Art. 106 · <span class="tema">Sacrificio</span></dt>
+          <dd>No puede <span class="ojo">sacrificarse al animal sin consentimiento</span> del asegurador, salvo disposición de autoridad o urgencia que no admita demora (certificada por veterinario o dos prácticos).</dd>
+          <dt>Art. 107 · <span class="tema">Indemnización</span></dt>
+          <dd>Se determina por el <span class="ojo">valor del animal fijado en la póliza</span>.</dd>
+          <dt>Art. 108 · <span class="tema">Muerte posterior al contrato</span></dt>
+          <dd>El asegurador responde por la muerte o incapacidad ocurrida hasta <span class="ojo">1 mes después de extinguido el contrato</span>, si la causó una enfermedad o lesión producida durante la vigencia (pagando prima proporcional).
+            <div class="ejemplo"><b>Ejemplo:</b> el caballo asegurado se enfermó en la última semana de vigencia y murió 20 días después de vencida la póliza → igual se paga.</div></dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Rama: Responsabilidad civil <span class="art-chip">arts. 109–120</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 109 · <span class="tema">Concepto</span></dt>
+          <dd>El asegurador se obliga a <span class="ojo">mantener indemne</span> al asegurado por cuanto deba a un tercero en razón de la responsabilidad prevista en el contrato, por un hecho ocurrido en el plazo convenido.
+            <div class="ejemplo"><b>Ejemplo:</b> chocás y lesionás a un motociclista: lo que le debas pagar, dentro de la cobertura, lo pone la aseguradora — protege tu patrimonio.</div></dd>
+          <dt>Art. 110 · <span class="tema">Alcance de la garantía</span></dt>
+          <dd>Comprende: <span class="ojo">a)</span> los gastos y <span class="ojo">costas judiciales y extrajudiciales</span> para resistir la pretensión del tercero; <span class="ojo">b)</span> las costas de la <span class="ojo">defensa penal</span> cuando el asegurador la asuma. Si el asegurado soporta parte del daño, los gastos se reembolsan en esa proporción.</dd>
+          <dt>Art. 111 · <span class="tema">Medida de gastos y costas</span></dt>
+          <dd>El pago de gastos y costas se debe <span class="ojo">en la medida en que fueron necesarios</span>.</dd>
+          <dt>Art. 112 · <span class="tema">Penas excluidas</span></dt>
+          <dd>La indemnización <span class="ojo">no incluye las penas</span> aplicadas por autoridad judicial o administrativa.
+            <div class="ejemplo"><b>Ejemplo:</b> la multa de tránsito por cruzar en rojo la pagás vos; el daño al auto que chocaste, la aseguradora.</div></dd>
+          <dt>Art. 113 · <span class="tema">Industria o comercio</span></dt>
+          <dd>El seguro de RC por el ejercicio de una industria o comercio comprende la responsabilidad de las <span class="ojo">personas con funciones de dirección</span>.</dd>
+          <dt>Art. 114 · <span class="tema">Dolo o culpa grave</span></dt>
+          <dd>El asegurado <span class="ojo">pierde el derecho</span> si provocó dolosamente o por culpa grave el hecho del que nace su responsabilidad.
+            <div class="ejemplo"><b>Ejemplo:</b> manejar con 2 g/l de alcohol en sangre suele juzgarse culpa grave → la aseguradora puede negarse a cubrirte (frente al damnificado el art. 118 tiene sus matices, pero a vos puede repetirte).</div></dd>
+          <dt>Art. 115 · <span class="tema">Denuncia</span></dt>
+          <dd>El asegurado denuncia el hecho del que puede nacer su responsabilidad en <span class="ojo">3 días</span> de producido (si lo conoce o debía conocerlo) o desde el reclamo del tercero, y da <span class="ojo">noticia inmediata</span> cuando el tercero demanda judicialmente.</dd>
+          <dt>Art. 116 · <span class="tema">No reconocer ni transar</span></dt>
+          <dd>El asegurador cumple la condena judicial <span class="ojo">en la parte a su cargo</span> en los términos procesales. El asegurado <span class="ojo">no puede reconocer su responsabilidad ni transar</span> sin anuencia del asegurador (el reconocimiento de hechos no es reconocimiento de responsabilidad).
+            <div class="ejemplo"><b>Ejemplo:</b> después del choque podés admitir "venía por esta calle a tal velocidad" (hechos), pero no firmar "fue toda mi culpa, te pago" sin la aseguradora.</div></dd>
+          <dt>Art. 117 · <span class="tema">Contralor de actuaciones</span></dt>
+          <dd>El asegurador puede <span class="ojo">examinar las actuaciones</span> administrativas o judiciales vinculadas al siniestro y constituirse en parte en la causa criminal.</dd>
+          <dt>Art. 118 · <span class="tema">Privilegio y citación en garantía</span></dt>
+          <dd>El crédito del damnificado tiene <span class="ojo">privilegio sobre la suma asegurada</span> con preferencia sobre el asegurado y sus acreedores. El damnificado puede <span class="ojo">citar en garantía</span> al asegurador en el juicio contra el responsable (hasta la apertura a prueba); la sentencia hace <span class="ojo">cosa juzgada contra el asegurador</span> y es ejecutable <span class="ojo">"en la medida del seguro"</span>. El asegurador no puede oponer las defensas nacidas <span class="ojo">después</span> del siniestro.
+            <div class="ejemplo"><b>Ejemplo:</b> un peatón atropellado demanda al conductor y trae al juicio a la aseguradora. Si la condena es de $80M y la cobertura de $50M, ejecuta $50M contra la aseguradora y el resto contra el conductor.</div></dd>
+          <dt>Art. 119 · <span class="tema">Pluralidad de damnificados</span></dt>
+          <dd>Con varios damnificados, la indemnización se distribuye <span class="ojo">a prorrata</span>; los juicios se acumulan ante el <span class="ojo">juez que previno</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> un choque con tres lesionados y cobertura de $90M: si sus créditos son iguales, $30M cada uno — no cobra todo el que demandó primero.</div></dd>
+          <dt>Art. 120 · <span class="tema">RC en el seguro colectivo</span></dt>
+          <dd>En el seguro colectivo pagado exclusivamente por el contratante, puede pactarse que cubra <span class="ojo">primero su responsabilidad civil</span> hacia los integrantes del grupo y que el saldo vaya al beneficiario.</dd>
         </dl>
         <p class="regla-memoria"><strong>Memoria:</strong> art. 118 = citación en garantía + "en la medida del seguro". Es el artículo más litigado de toda la ley (juicios de accidentes de tránsito).</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Rama: Transporte <span class="art-chip">arts. 121–127</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 121 · <span class="tema">Ámbito</span></dt>
+          <dd>El seguro de transporte <span class="ojo">por tierra</span> se rige por esta ley y subsidiariamente por las reglas del <span class="ojo">seguro marítimo</span>; el fluvial y de aguas interiores, por las del marítimo con estas modificaciones.</dd>
+          <dt>Art. 122 · <span class="tema">Desvío de ruta</span></dt>
+          <dd>El asegurador no responde si el viaje se hizo <span class="ojo">sin necesidad por rutas extraordinarias</span> o de manera no común.
+            <div class="ejemplo"><b>Ejemplo:</b> el camión desvió 200 km por un camino de tierra para hacer una gestión personal y ahí volcó → sin cobertura. Si desvió porque la ruta estaba cortada, sí responde.</div></dd>
+          <dt>Art. 123 · <span class="tema">Por tiempo o por viaje</span></dt>
+          <dd>Puede convenirse por tiempo o por viaje; en ambos casos el asegurador indemniza el daño producido <span class="ojo">después del plazo de garantía</span> si la prolongación del viaje obedece a un <span class="ojo">riesgo cubierto</span>.</dd>
+          <dt>Art. 124 · <span class="tema">Abandono</span></dt>
+          <dd>En vehículos de transporte terrestre, el abandono solo procede con <span class="ojo">pérdida total efectiva</span>, y se hace en el plazo de <span class="ojo">30 días</span> del siniestro.</dd>
+          <dt>Art. 125 · <span class="tema">Responsabilidad del transportista</span></dt>
+          <dd>El seguro de responsabilidad del transportista (hacia pasajero, cargador, destinatario o terceros) comprende la responsabilidad por <span class="ojo">hechos de sus dependientes</span> y personas por las que responde.</dd>
+          <dt>Art. 126 · <span class="tema">Cálculo de la indemnización</span></dt>
+          <dd><span class="ojo">Mercaderías</span>: por su precio <span class="ojo">en destino</span> al tiempo en que regularmente debieron llegar. <span class="ojo">Vehículos</span>: por su valor al tiempo del siniestro.</dd>
+          <dt>Art. 127 · <span class="tema">Vicio propio y afines</span></dt>
+          <dd>No se responde por el daño debido a la <span class="ojo">naturaleza intrínseca de la mercadería</span>, vicio propio, mal acondicionamiento, merma, derrame o <span class="ojo">embalaje deficiente</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> la fruta llegó podrida porque viajó madura de más: naturaleza intrínseca, no lo cubre; si llegó aplastada por un vuelco, sí.</div></dd>
+        </dl>
       </div>
     </details>
 
@@ -539,27 +819,98 @@
 
 <!-- ================= CAP III ================= -->
 <section id="personas">
-  <h2>Capítulo III — Seguros de personas</h2>
-  <p class="h2-nota">La vida humana no tiene precio de mercado: acá no rige el principio indemnizatorio estricto — se paga la suma convenida. Por eso tampoco hay subrogación.</p>
+  <h2>Capítulo III — Seguros de personas <span class="art-chip">arts. 128–156</span></h2>
+  <p class="h2-nota">La vida humana no tiene precio de mercado: acá no rige el principio indemnizatorio estricto — se paga la <strong>suma convenida</strong>. Por eso tampoco hay subrogación (art. 80 in fine).</p>
 
   <div class="fichas">
 
     <details class="ficha">
-      <summary>Seguro sobre la vida <span class="art-chip">arts. 128–148</span></summary>
+      <summary>Vida: quién puede asegurarse <span class="art-chip">arts. 128–131</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Art. 128</dt>
-          <dd>Puede asegurarse la vida propia o la de un <span class="ojo">tercero</span> (en ese caso se requiere su <span class="ojo">consentimiento por escrito</span>). Menores desde los 18 años pueden contratar sobre su propia vida si designan beneficiarios a ciertos parientes. Prohibido sobre la vida de menores de 14 años y de interdictos.</dd>
-          <dt>Art. 130</dt>
-          <dd><span class="ojo">Suicidio</span>: libera al asegurador, salvo que el contrato haya estado en vigor ininterrumpidamente por <span class="ojo">3 años</span>.</dd>
-          <dt>Arts. 136–137</dt>
-          <dd>El asegurador se libera si la muerte fue provocada deliberadamente por acto ilícito del contratante; el <span class="ojo">beneficiario que provoca la muerte</span> deliberadamente pierde su derecho.</dd>
-          <dt>Arts. 138 y ss.</dt>
-          <dd>Después de cierto tiempo de vigencia, el asegurado gana derechos de <span class="ojo">rescate y conversión</span> (la póliza acumula valor); la ley protege ese valor frente a la falta de pago.</dd>
-          <dt>Arts. 143–147</dt>
-          <dd><span class="ojo">Beneficiario</span>: designación libre y revocable; a falta de designación o si caduca, los herederos. La designación puede hacerse incluso por testamento.</dd>
+          <dt>Art. 128 · <span class="tema">Vida asegurable</span></dt>
+          <dd>Puede asegurarse la <span class="ojo">vida propia o la de un tercero</span>. Los mayores de 18 pueden contratar sobre su propia vida (si designan beneficiarios a ciertos parientes). Sobre la vida de un tercero se requiere su <span class="ojo">consentimiento por escrito</span>. <span class="ojo">Prohibido</span> sobre menores de 14 años e interdictos.
+            <div class="ejemplo"><b>Ejemplo:</b> dos socios pueden asegurar cada uno la vida del otro (firmando el consentimiento): si uno muere, el seguro compensa el golpe económico a la sociedad.</div></dd>
+          <dt>Art. 129 · <span class="tema">Conocimiento y conducta del tercero</span></dt>
+          <dd>En el seguro sobre la vida de un tercero se toma en cuenta el conocimiento y la conducta <span class="ojo">del contratante y del tercero</span>.</dd>
+          <dt>Art. 130 · <span class="tema">Incontestabilidad</span></dt>
+          <dd>Transcurridos <span class="ojo">3 años</span> desde la celebración, el asegurador <span class="ojo">no puede invocar la reticencia</span>, excepto la dolosa.
+            <div class="ejemplo"><b>Ejemplo:</b> al contratar omitiste de buena fe una dolencia menor; a los 5 años fallece el asegurado → la aseguradora ya no puede escudarse en esa omisión.</div></dd>
+          <dt>Art. 131 · <span class="tema">Edad inexacta</span></dt>
+          <dd>La denuncia inexacta de la edad solo permite <span class="ojo">rescindir</span> si la edad real excede los límites de la práctica comercial del asegurador. Si la edad real es <span class="ojo">mayor</span>: el capital se reduce conforme a la prima pagada. Si es <span class="ojo">menor</span>: se devuelve la reserva del exceso de prima y se reajustan las futuras.</dd>
         </dl>
-        <p class="regla-memoria"><strong>Memoria:</strong> el beneficiario adquiere un <em>derecho propio</em> al ocurrir el siniestro — la suma no integra la herencia del asegurado.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Vida: agravación y rescisión <span class="art-chip">arts. 132–134</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 132 · <span class="tema">Agravación limitada</span></dt>
+          <dd>Solo debe denunciarse la agravación del riesgo que obedezca a <span class="ojo">motivos específicamente previstos</span> en el contrato.
+            <div class="ejemplo"><b>Ejemplo:</b> si la póliza de vida prevé denunciar la práctica de paracaidismo y empezás a saltar, tenés que avisar; engordar o mudarte, no.</div></dd>
+          <dt>Art. 133 · <span class="tema">Cambio de profesión</span></dt>
+          <dd>El cambio de profesión o actividad autoriza la rescisión (o el reajuste) cuando <span class="ojo">agrava el riesgo</span> al punto de que el asegurador no habría contratado o lo habría hecho por prima mayor.</dd>
+          <dt>Art. 134 · <span class="tema">Rescisión facultativa</span></dt>
+          <dd>El asegurado puede <span class="ojo">rescindir sin limitación</span> después del primer período de seguro. El contrato se juzga rescindido si <span class="ojo">no paga la prima</span> en los términos convenidos.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Vida: liberaciones del asegurador <span class="art-chip">arts. 135–137</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 135 · <span class="tema">Suicidio</span></dt>
+          <dd>El <span class="ojo">suicidio voluntario</span> libera al asegurador, <span class="ojo">salvo que el contrato haya estado en vigor ininterrumpidamente por 3 años</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> suicidio en el año 2 de la póliza → no se paga; en el año 4 → se paga. La lógica: evitar que alguien contrate el seguro planeando el suicidio.</div></dd>
+          <dt>Art. 136 · <span class="tema">Muerte provocada</span></dt>
+          <dd>En el seguro sobre la vida de un tercero, el asegurador se libera si la muerte fue <span class="ojo">provocada deliberadamente por acto ilícito del contratante</span>. El <span class="ojo">beneficiario que provoca deliberadamente la muerte</span> con un acto ilícito pierde todo derecho.</dd>
+          <dt>Art. 137 · <span class="tema">Empresa criminal</span></dt>
+          <dd>Se libera el asegurador si el asegurado muere en <span class="ojo">empresa criminal</span> o por aplicación legítima de la <span class="ojo">pena de muerte</span>.</dd>
+        </dl>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Vida: seguro saldado, rescate y préstamo <span class="art-chip">arts. 138–142</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 138 · <span class="tema">Conversión y rescate</span></dt>
+          <dd>Pasados <span class="ojo">3 años</span> y al día con las primas, el asegurado puede exigir, según los planes técnicos aprobados: la <span class="ojo">conversión en un seguro saldado</span> (suma reducida o plazo menor) o la rescisión con pago del <span class="ojo">valor de rescate</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> a los 5 años no querés pagar más: podés "congelar" la póliza por una suma menor sin pagar nunca más (saldado) o llevarte la plata acumulada (rescate).</div></dd>
+          <dt>Art. 139 · <span class="tema">Conversión automática</span></dt>
+          <dd>Si el asegurado interrumpe el pago y no opta dentro del <span class="ojo">mes de interpelado</span> por el asegurador, el contrato se <span class="ojo">convierte automáticamente en seguro saldado</span> por suma reducida.</dd>
+          <dt>Art. 140 · <span class="tema">Liberación del asegurador</span></dt>
+          <dd>Cuando el asegurador se libera por cualquier causa después de <span class="ojo">3 años</span>, se aplica el art. 9: debe el <span class="ojo">valor de rescate</span>.</dd>
+          <dt>Art. 141 · <span class="tema">Préstamo</span></dt>
+          <dd>Al día con las primas y pasados <span class="ojo">3 años</span>, el asegurado tiene derecho a un <span class="ojo">préstamo</span> sobre la reserva de su póliza; puede pactarse el <span class="ojo">préstamo automático</span> para cubrir primas impagas.</dd>
+          <dt>Art. 142 · <span class="tema">Rehabilitación</span></dt>
+          <dd>Aun reducido el seguro (arts. 138–139), el asegurado puede <span class="ojo">restablecerlo a sus términos originales</span> pagando las primas del período de la reducción con sus intereses.</dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> en vida, el número mágico es <em>3 años</em>: incontestabilidad (130), suicidio (135), saldado/rescate (138), préstamo (141).</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Vida: beneficiarios <span class="art-chip">arts. 143–148</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 143 · <span class="tema">Derecho propio del beneficiario</span></dt>
+          <dd>Se puede pactar que el capital o renta se pague a un <span class="ojo">tercero sobreviviente</span>, determinado o determinable al momento del evento. El beneficiario adquiere un <span class="ojo">derecho propio</span> al producirse el evento.
+            <div class="ejemplo"><b>Ejemplo:</b> la suma del seguro de vida va directo al beneficiario: no entra en la sucesión ni responde por las deudas del fallecido.</div></dd>
+          <dt>Art. 144 · <span class="tema">Colación y reducción</span></dt>
+          <dd>Los herederos legítimos del asegurado tienen derecho a colación o reducción <span class="ojo">solo por el monto de las primas pagadas</span>, no por el capital.</dd>
+          <dt>Art. 145 · <span class="tema">Reglas de designación</span></dt>
+          <dd>Varios beneficiarios sin fijación de cuota: <span class="ojo">por partes iguales</span>. "Hijos" = los <span class="ojo">concebidos y los sobrevivientes</span> al evento. "Herederos" = los que por ley suceden, en proporción a sus cuotas. Sin designación (o caduca): los <span class="ojo">herederos</span>.</dd>
+          <dt>Art. 146 · <span class="tema">Forma</span></dt>
+          <dd>La designación se hace <span class="ojo">por escrito, sin formalidad determinada</span>, aunque la póliza exija otra cosa; vale aun <span class="ojo">notificada al asegurador después del evento</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> podés cambiar el beneficiario por una simple nota firmada, incluso por testamento — y vale aunque la aseguradora se entere después del fallecimiento.</div></dd>
+          <dt>Art. 147 · <span class="tema">Quiebra del asegurado</span></dt>
+          <dd>La quiebra o el concurso del asegurado <span class="ojo">no afecta el contrato</span>; los acreedores solo pueden ir contra el <span class="ojo">crédito de rescate ejercido</span> o el capital que el fallido deba percibir.</dd>
+          <dt>Art. 148 · <span class="tema">Ámbito</span></dt>
+          <dd>Este capítulo se aplica a los seguros para el caso de <span class="ojo">muerte, supervivencia, mixtos</span> y otros vinculados a la vida humana, en cuanto sean compatibles.</dd>
+        </dl>
       </div>
     </details>
 
@@ -567,8 +918,15 @@
       <summary>Accidentes personales <span class="art-chip">arts. 149–152</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Arts. 149–152</dt>
-          <dd>Se aplican por analogía varias reglas del seguro de vida y las cargas de salvamento. El asegurador se libera si el asegurado o beneficiario <span class="ojo">provoca el accidente dolosamente o por culpa grave</span>.</dd>
+          <dt>Art. 149 · <span class="tema">Remisión</span></dt>
+          <dd>Se aplican los arts. <span class="ojo">132, 133 y 143 a 147</span> del seguro de vida (agravación, cambio de profesión y beneficiarios).</dd>
+          <dt>Art. 150 · <span class="tema">Reducción de consecuencias</span></dt>
+          <dd>El asegurado debe procurar <span class="ojo">atenuar las consecuencias del accidente</span> y observar las instrucciones (incluidas las médicas) — la carga de salvamento aplicada a las personas.</dd>
+          <dt>Art. 151 · <span class="tema">Peritos</span></dt>
+          <dd>El dictamen de peritos sobre el siniestro o sus consecuencias <span class="ojo">no es obligatorio</span> si se aparta evidentemente de la real situación de hecho o del procedimiento pactado; anulado, se verifica judicialmente.</dd>
+          <dt>Art. 152 · <span class="tema">Provocación</span></dt>
+          <dd>El asegurador se libera si el asegurado o beneficiario <span class="ojo">provoca el accidente con dolo o culpa grave</span>, o lo sufre en <span class="ojo">empresa criminal</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> lesionarse haciendo una picada ilegal a 180 km/h puede juzgarse culpa grave y dejar sin cobertura el accidente personal.</div></dd>
         </dl>
       </div>
     </details>
@@ -577,8 +935,59 @@
       <summary>Seguro colectivo <span class="art-chip">arts. 153–156</span></summary>
       <div class="ficha-cuerpo">
         <dl>
-          <dt>Arts. 153–156</dt>
-          <dd>Un tomador (típicamente el empleador o un banco) contrata sobre la vida o salud de un <span class="ojo">grupo</span>. Los integrantes del grupo y sus beneficiarios tienen un <span class="ojo">derecho propio</span> contra el asegurador desde que ocurre el evento.</dd>
+          <dt>Art. 153 · <span class="tema">Derecho propio</span></dt>
+          <dd>En el seguro colectivo de vida o accidentes en interés exclusivo de los integrantes del grupo, éstos (o sus beneficiarios) tienen un <span class="ojo">derecho propio contra el asegurador</span> desde que ocurre el evento.
+            <div class="ejemplo"><b>Ejemplo:</b> el seguro de vida colectivo que contrata un empleador: si fallece un empleado, su familia le reclama directo a la aseguradora, sin pasar por la empresa.</div></dd>
+          <dt>Art. 154 · <span class="tema">Incorporación al grupo</span></dt>
+          <dd>El contrato fija las <span class="ojo">condiciones de incorporación</span> al grupo asegurado, que se produce cuando se cumplen; si requiere examen médico, la incorporación se hace dentro de los <span class="ojo">15 días</span> de la comunicación.</dd>
+          <dt>Art. 155 · <span class="tema">Salida del grupo</span></dt>
+          <dd>Quien deja de pertenecer <span class="ojo">definitivamente al grupo queda excluido</span> del seguro desde ese momento, salvo pacto en contrario.
+            <div class="ejemplo"><b>Ejemplo:</b> renunciaste a la empresa el 31 de mayo: desde ese día dejás de estar cubierto por el colectivo, salvo que la póliza diga otra cosa.</div></dd>
+          <dt>Art. 156 · <span class="tema">Contratante beneficiario</span></dt>
+          <dd>El contratante solo puede ser beneficiario si <span class="ojo">integra el grupo</span> (por sus propios accidentes, sin perjuicio del art. 120), o si tiene un <span class="ojo">interés económico lícito</span> sobre la vida o salud de los integrantes, en la medida del perjuicio concreto.</dd>
+        </dl>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= FINALES Y REASEGURO ================= -->
+<section id="finales">
+  <h2>Disposiciones finales y reaseguro <span class="art-chip">arts. 157–163</span></h2>
+  <p class="h2-nota">El cierre del Título I dice qué normas son intocables, y el Título II regula el seguro que contratan las propias aseguradoras.</p>
+
+  <div class="fichas">
+
+    <details class="ficha">
+      <summary>Disposiciones finales <span class="art-chip">arts. 157–158</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 157 · <span class="tema">Seguros marítimos y aeronáuticos</span></dt>
+          <dd>Estas disposiciones se aplican a los seguros <span class="ojo">marítimos y de la aeronavegación</span> solo en lo no previsto por sus leyes específicas y en cuanto no repugnen a su naturaleza.</dd>
+          <dt>Art. 158 · <span class="tema">Obligatoriedad de las normas</span></dt>
+          <dd>Hay dos niveles: los arts. <span class="ojo">5, 8, 9, 34 y 38 no pueden variarse</span> por acuerdo de partes; y los arts. <span class="ojo">6, 7, 12, 15, 18 (2° párr.), 19, 29, 36, 37, 46, 49, 51, 52, 82, 108, 110, 114, 116, 130, 132, 135 y 140</span> solo pueden modificarse <span class="ojo">a favor del asegurado</span>.
+            <div class="ejemplo"><b>Ejemplo:</b> una cláusula que te dé 1 día en vez de 3 para denunciar el siniestro (art. 46) es nula; una que te dé 10 días, válida — solo se puede mejorar tu posición.</div></dd>
+        </dl>
+        <p class="regla-memoria"><strong>Memoria:</strong> el seguro es un contrato de adhesión: el art. 158 protege a la parte débil haciendo que el piso legal solo pueda moverse a favor del asegurado.</p>
+      </div>
+    </details>
+
+    <details class="ficha">
+      <summary>Título II — Reaseguro <span class="art-chip">arts. 159–163</span></summary>
+      <div class="ficha-cuerpo">
+        <dl>
+          <dt>Art. 159 · <span class="tema">Concepto</span></dt>
+          <dd>El asegurador puede, a su vez, <span class="ojo">asegurar los riesgos asumidos</span>, pero sigue siendo el <span class="ojo">único obligado</span> frente al tomador. Las retrocesiones se rigen por este título.
+            <div class="ejemplo"><b>Ejemplo:</b> la compañía que asegura una planta industrial enorme cede parte del riesgo a un reasegurador internacional; si la planta se incendia, a vos igual te paga tu aseguradora.</div></dd>
+          <dt>Art. 160 · <span class="tema">Sin acción directa</span></dt>
+          <dd>El asegurado <span class="ojo">carece de acción contra el reasegurador</span>. En la liquidación del asegurador, el conjunto de asegurados tiene <span class="ojo">privilegio especial</span> sobre el saldo acreedor de la cuenta con el reasegurador.</dd>
+          <dt>Art. 161 · <span class="tema">Compensación</span></dt>
+          <dd>En la liquidación (voluntaria o forzosa) se <span class="ojo">compensan de pleno derecho</span> las deudas y créditos recíprocos de los contratos de reaseguro, considerando la fecha de rescisión, la prima proporcional al tiempo no corrido y el depósito de garantía.</dd>
+          <dt>Art. 162 · <span class="tema">Régimen legal</span></dt>
+          <dd>El contrato de reaseguro se rige por este título y por <span class="ojo">lo convenido por las partes</span> (gran libertad contractual: es un contrato entre empresas).</dd>
+          <dt>Art. 163 · <span class="tema">Vigencia y derogaciones</span></dt>
+          <dd>La ley se incorporó al Código de Comercio, rigió a los <span class="ojo">6 meses de su promulgación</span> y derogó los arts. 492–557 y 1251–1260 del viejo Código y la ley 3.942.</dd>
         </dl>
       </div>
     </details>
@@ -590,7 +999,7 @@
 <section id="plazos">
   <h2>Plazos clave</h2>
   <div class="plazos-barra">
-    <p class="h2-nota" style="margin:0;">Los plazos son lo más tomado en exámenes y lo más usado en la práctica. Activá el modo repaso para taparlos y auto-evaluarte: tocá cada celda para revelarla.</p>
+    <p class="h2-nota" style="margin:0;">Lo más tomado en exámenes y lo más usado en la práctica. Activá el modo repaso para tapar las respuestas y auto-evaluarte: tocá cada celda para revelarla.</p>
     <button class="repaso" id="btn-repaso" type="button" aria-pressed="false">Modo repaso</button>
   </div>
   <div class="tabla-scroll">
@@ -599,15 +1008,25 @@
       <tr><th scope="col">Situación</th><th scope="col">Plazo</th><th scope="col">Artículo</th></tr>
     </thead>
     <tbody>
+      <tr><td>Hora en que empieza y termina la cobertura</td><td class="plazo-num respuesta"><span>12 hs</span></td><td class="plazo-art"><span>art. 18</span></td></tr>
+      <tr><td>Denunciar muerte, enfermedad o accidente del animal asegurado</td><td class="plazo-num respuesta"><span>24 horas</span></td><td class="plazo-art"><span>art. 103</span></td></tr>
       <tr><td>Denunciar el siniestro al asegurador</td><td class="plazo-num respuesta"><span>3 días</span></td><td class="plazo-art"><span>art. 46</span></td></tr>
-      <tr><td>Cambio de titular del interés asegurado: notificar</td><td class="plazo-num respuesta"><span>7 días</span></td><td class="plazo-art"><span>art. 82</span></td></tr>
+      <tr><td>Denunciar el hecho del que puede nacer responsabilidad civil</td><td class="plazo-num respuesta"><span>3 días</span></td><td class="plazo-art"><span>art. 115</span></td></tr>
+      <tr><td>Notificar el cambio de titular del interés asegurado</td><td class="plazo-num respuesta"><span>7 días</span></td><td class="plazo-art"><span>art. 82</span></td></tr>
+      <tr><td>Preaviso del asegurador para rescindir sin causa</td><td class="plazo-num respuesta"><span>15 días</span></td><td class="plazo-art"><span>art. 18</span></td></tr>
       <tr><td>Pago de la indemnización una vez fijado el monto</td><td class="plazo-num respuesta"><span>15 días</span></td><td class="plazo-art"><span>art. 49</span></td></tr>
+      <tr><td>Rechazo de la propuesta de prórroga por el asegurador</td><td class="plazo-num respuesta"><span>15 días</span></td><td class="plazo-art"><span>art. 4</span></td></tr>
       <tr><td>Pronunciamiento del asegurador sobre el derecho (silencio = aceptación)</td><td class="plazo-num respuesta"><span>30 días</span></td><td class="plazo-art"><span>art. 56</span></td></tr>
+      <tr><td>Abandono del vehículo en el seguro de transporte (pérdida total)</td><td class="plazo-num respuesta"><span>30 días</span></td><td class="plazo-art"><span>art. 124</span></td></tr>
       <tr><td>Reclamar diferencias entre propuesta y póliza</td><td class="plazo-num respuesta"><span>1 mes</span></td><td class="plazo-art"><span>art. 12</span></td></tr>
+      <tr><td>Alegar la caducidad por carga incumplida antes del siniestro</td><td class="plazo-num respuesta"><span>1 mes</span></td><td class="plazo-art"><span>art. 36</span></td></tr>
+      <tr><td>Pedir pago a cuenta si la liquidación se demora (desde la denuncia)</td><td class="plazo-num respuesta"><span>1 mes</span></td><td class="plazo-art"><span>art. 51</span></td></tr>
       <tr><td>Asegurador impugna el contrato por reticencia (desde que la conoce)</td><td class="plazo-num respuesta"><span>3 meses</span></td><td class="plazo-art"><span>art. 5</span></td></tr>
-      <tr><td>Prescripción de las acciones fundadas en el contrato</td><td class="plazo-num respuesta"><span>1 año</span></td><td class="plazo-art"><span>art. 58</span></td></tr>
       <tr><td>Duración presumida del período de seguro</td><td class="plazo-num respuesta"><span>1 año</span></td><td class="plazo-art"><span>art. 17</span></td></tr>
-      <tr><td>Vigencia mínima para que el suicidio quede cubierto (vida)</td><td class="plazo-num respuesta"><span>3 años</span></td><td class="plazo-art"><span>art. 130</span></td></tr>
+      <tr><td>Prescripción de las acciones fundadas en el contrato</td><td class="plazo-num respuesta"><span>1 año</span></td><td class="plazo-art"><span>art. 58</span></td></tr>
+      <tr><td>Incontestabilidad de la reticencia no dolosa en vida</td><td class="plazo-num respuesta"><span>3 años</span></td><td class="plazo-art"><span>art. 130</span></td></tr>
+      <tr><td>Vigencia mínima para que el suicidio quede cubierto</td><td class="plazo-num respuesta"><span>3 años</span></td><td class="plazo-art"><span>art. 135</span></td></tr>
+      <tr><td>Antigüedad mínima para rescate, conversión y préstamo (vida)</td><td class="plazo-num respuesta"><span>3 años</span></td><td class="plazo-art"><span>arts. 138–141</span></td></tr>
     </tbody>
   </table>
   </div>
@@ -621,23 +1040,23 @@
 
   <div class="conceptos">
     <div class="concepto"><h3>Máxima buena fe<span class="art-chip">base del sistema</span></h3><p>El seguro es un contrato <b>uberrimae bona fidei</b>: el asegurador contrata a ciegas sobre lo que el asegurado declara. De ahí la dureza de la reticencia (art. 5).</p></div>
-    <div class="concepto"><h3>Interés asegurable<span class="art-chip">arts. 2 y 60</span></h3><p>Relación económica lícita entre una persona y un bien (o su propia vida). <b>Sin interés no hay seguro</b> — habría apuesta.</p></div>
+    <div class="concepto"><h3>Interés asegurable<span class="art-chip">arts. 2 y 60</span></h3><p>Relación económica lícita entre una persona y un bien (o una vida). <b>Sin interés no hay seguro</b> — habría apuesta.</p></div>
     <div class="concepto"><h3>Regla proporcional<span class="art-chip">art. 65</span></h3><p>En el infraseguro, el asegurado <b>soporta la parte no cubierta</b>: la indemnización se reduce en proporción entre suma asegurada y valor real.</p></div>
     <div class="concepto"><h3>Suspensión de cobertura<span class="art-chip">art. 31</span></h3><p>Prima impaga = siniestro en mora <b>no cubierto</b>. El contrato sigue vivo y las primas se siguen debiendo, pero el asegurador no responde.</p></div>
     <div class="concepto"><h3>Cargas del asegurado<span class="art-chip">arts. 46–48, 72, 115</span></h3><p>No son obligaciones exigibles sino <b>imperativos del propio interés</b>: denunciar, informar, salvar, no transar. Incumplirlas hace perder el derecho, no genera demanda.</p></div>
     <div class="concepto"><h3>Subrogación<span class="art-chip">art. 80</span></h3><p>Pagando, el asegurador <b>ocupa el lugar del asegurado</b> contra el tercero responsable. Nunca en seguros de personas.</p></div>
     <div class="concepto"><h3>Citación en garantía<span class="art-chip">art. 118</span></h3><p>El damnificado trae al asegurador al juicio contra el asegurado; la condena se ejecuta contra la aseguradora <b>"en la medida del seguro"</b>.</p></div>
-    <div class="concepto"><h3>Normas imperativas<span class="art-chip">art. 158</span></h3><p>Ciertas reglas (p. ej. denuncia del siniestro, mora, reticencia) solo pueden modificarse <b>a favor del asegurado</b>. Protege a la parte débil del contrato de adhesión.</p></div>
+    <div class="concepto"><h3>Normas imperativas<span class="art-chip">art. 158</span></h3><p>Cinco artículos inmodificables y una lista larga modificable <b>solo a favor del asegurado</b>. Protege a la parte débil del contrato de adhesión.</p></div>
   </div>
 
   <div class="vs">
     <div class="concepto"><h3>Caducidad</h3><p>El asegurado <b>tenía</b> el derecho y lo <b>pierde</b> por incumplir una carga (no denunció a tiempo, exageró el daño). Mira la conducta del asegurado.</p></div>
-    <div class="concepto"><h3>Exclusión de cobertura</h3><p>El riesgo <b>nunca estuvo cubierto</b> (guerra, dolo, uso no declarado). No hay derecho que perder: el siniestro cae fuera del contrato. Distinción clásica de examen.</p></div>
+    <div class="concepto"><h3>Exclusión de cobertura</h3><p>El riesgo <b>nunca estuvo cubierto</b> (guerra, terremoto, dolo, vicio propio). No hay derecho que perder: el siniestro cae fuera del contrato. Distinción clásica de examen.</p></div>
   </div>
 </section>
 
 <footer>
-  Mapa de estudio de la Ley 17.418 (texto según B.O. 06/09/1967 y modificatorias). Es material de repaso: para citar en un examen o escrito, verificá siempre el texto vigente en InfoLEG (servicios.infoleg.gob.ar).
+  Mapa de estudio de la Ley 17.418 (B.O. 06/09/1967 y modificatorias), con resúmenes cotejados contra el texto de la norma. Es material de repaso, no reemplaza al texto legal: para citar en un examen o escrito, verificá siempre la redacción exacta y vigente en InfoLEG (servicios.infoleg.gob.ar, norma n° 39520).
 </footer>
 
 </div>
@@ -661,6 +1080,14 @@
         var span = celda.querySelector("span");
         if (span) span.classList.add("revelado");
       }
+    });
+
+    var btnExp = document.getElementById("btn-expandir");
+    var abiertas = false;
+    btnExp.addEventListener("click", function () {
+      abiertas = !abiertas;
+      document.querySelectorAll("details.ficha").forEach(function (d) { d.open = abiertas; });
+      btnExp.textContent = abiertas ? "Cerrar todo" : "Abrir todo";
     });
   })();
 </script>
