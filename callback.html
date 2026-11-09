@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head><title>Autorización completada</title></head>
+<head>
+  <meta charset="utf-8">
+  <title>Autorización completada</title>
+</head>
 <body>
   <h1>Autorización completada</h1>
   <p>Copiá el código de la URL (code=...) y pasalo a GPT.</p>
+  <p><strong>CODE:</strong> <span id="code"></span></p>
   <script>
     const url = new URL(window.location.href);
     const code = url.searchParams.get("code");
-    document.body.innerHTML += `<p><strong>CODE:</strong> ${code}</p>`;
+    // textContent muestra el valor como texto plano: nunca se interpreta como HTML ni ejecuta código.
+    document.getElementById("code").textContent = code ?? "(no se recibió ningún código)";
   </script>
 </body>
 </html>
